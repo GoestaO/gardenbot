@@ -1,0 +1,34 @@
+swagger: "2.0"
+
+info:
+  title: "{{title}}"
+  version: "1.0"
+
+basePath: /v1.0
+
+paths:
+  /watering/{seconds}:
+    post:
+      summary: Waters the plants
+      description: Opens the ventile for the specified time (in seconds)
+      operationId: api.gardenbot-api.water_plants
+      produces:
+        - text/plain;
+      responses:
+        200:
+          description: watering response
+          schema:
+            type: string
+          examples:
+            "text/plain": "Watering the plants..."
+      parameters:
+        - name: seconds
+          in: path
+          description: Time in seconds, the plants are supposed to be watered
+          required: true
+          type: string
+      security:
+        - basic: []
+securityDefinitions:
+  basic:
+    type: basic
