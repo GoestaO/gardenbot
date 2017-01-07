@@ -11,7 +11,7 @@ paths:
     post:
       summary: Waters the plants
       description: Opens the ventile for the specified time (in seconds)
-      operationId: api.gardenbot-api.water_plants
+      operationId: api.classes.gardenbot-api.water_plants
       produces:
         - text/plain;
       responses:
@@ -27,6 +27,10 @@ paths:
           description: Time in seconds, the plants are supposed to be watered
           required: true
           type: string
+        - name: API-Key
+          in: header
+          type: string
+          required: true
       security:
         - basic: []
 securityDefinitions:
