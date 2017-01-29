@@ -31,8 +31,3 @@ paths:
           in: header
           type: string
           required: true
-      security:
-        - basic: []
-securityDefinitions:
-  basic:
-    type: basic
