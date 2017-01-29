@@ -21,6 +21,8 @@ class Gardenbot:
     '''
     def measure_moisture(self, channel):
         self.start_sensor()
+
+        # wait a bit
         time.sleep(1)
         if Gardenbot.soil_is_dry(channel):
             self.water_plants()
