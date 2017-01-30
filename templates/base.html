@@ -10,6 +10,7 @@ css">
 body { padding-top: 60px; }
 
 
+
     </style>
     {% block extra_styles %}{% endblock %}
     <script src=
@@ -45,15 +46,23 @@ bootstrap.min.js"></script>
     <div class="row">
         <div class="col-md-10">
             <h1>{% block content_title %}{% endblock %}</h1>
+            {% for category, message in get_flashed_messages(with_categories=true)
+            %}
+            <div class="alert alert-dismissable alert-{{ category }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</
+                button>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% block content %}
             {% endblock %}
         </div>
         <!--<div class="col-md-2">-->
-            <!--{% block sidebar %}-->
-            <!--<ul class="well nav nav-stacked">-->
-                <!--<li><a href="#">Sidebar item</a></li>-->
-            <!--</ul>-->
-            <!--{% endblock %}-->
+        <!--{% block sidebar %}-->
+        <!--<ul class="well nav nav-stacked">-->
+        <!--<li><a href="#">Sidebar item</a></li>-->
+        <!--</ul>-->
+        <!--{% endblock %}-->
         <!--</div>-->
     </div>
     <div class="row">
