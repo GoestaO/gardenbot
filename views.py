@@ -1,7 +1,6 @@
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from forms import WaterForm
-from flask import flash
 
 @app.route('/')
 def homepage():
@@ -12,8 +11,8 @@ def homepage():
 def test_form():
     form = WaterForm(request.form)
     if form.validate():
-        data = request.form.get('wateringTime')
-        print(data)
+        time = request.form.get('wateringTime')
+        flash("Watering started for {0} seconds".format(time))
         return redirect(url_for('homepage'))
     # else:
     #     form = WaterForm()
