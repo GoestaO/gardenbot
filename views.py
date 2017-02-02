@@ -8,7 +8,7 @@ def homepage():
     return render_template('homepage.html', form=form)
 
 @app.route('/', methods=['POST'])
-def test_form():
+def water_manually():
     form = WaterForm(request.form)
     if form.validate():
         time = request.form.get('wateringTime')
