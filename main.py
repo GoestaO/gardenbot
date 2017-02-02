@@ -1,6 +1,7 @@
 from views import *
 import connexion
-from app import app
+from app import app, db
+import models
 
 
 
