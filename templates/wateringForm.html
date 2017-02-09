@@ -6,5 +6,13 @@
     {% for field in form %} 
         {{ form_field(field) }}
     {% endfor %}
+<div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-
+default">Start
+            </button>
+            <a class="btn" href="{{ url_for('homepage')
+}}">Cancel</a>
+        </div>
 </form>
 
