@@ -11,7 +11,7 @@ app = connexion.App(__name__)
 app.add_api('api/endpoints/gardenbot-api.yaml')
 app.app.config.from_object(Configuration)
 db = SQLAlchemy(app.app)
-migrate = Migrate(app, db)
+migrate = Migrate(app.app, db)
 manager = Manager(app.app)
 manager.add_command('db', MigrateCommand)
 
