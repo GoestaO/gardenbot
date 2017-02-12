@@ -4,7 +4,7 @@ import sys
 
 
 class Gardenbot:
-    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=10):
+    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=30):
         GPIO.setmode(GPIO.BCM)
         self.moisture_sensor_channel = moisture_sensor_channel
         self.relay_channel_ventile = relay_channel_ventile
@@ -13,7 +13,7 @@ class Gardenbot:
 
     def setup_pins(self):
         GPIO.setup(self.moisture_sensor_channel, GPIO.IN)
-        GPIO.setup(self.relay_channel_ventile, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.relay_channel_ventile, GPIO.OUT, initial=GPIO.HIGH)
         GPIO.setup(self.relay_channel_sensor, GPIO.OUT, initial=GPIO.HIGH)
 
     '''
@@ -27,9 +27,9 @@ class Gardenbot:
         if Gardenbot.soil_is_dry(channel):
             self.water_plants()
         else:
-            Gardenbot.close_water()
+            self.close_water()
             print 'No need to water, exit!'
-            Gardenbot.stop_sensor()
+            self.stop_sensor()
             self.close()
 
     @staticmethod
@@ -42,16 +42,24 @@ class Gardenbot:
 
     #This method waters the plants
     def water_plants(self, watering_time=None):
-        Gardenbot.stop_sensor()
+        self.stop_sensor()
         print 'Let us water the plants!'
         if watering_time == None:
             watering_time = self.watering_time
-        Gardenbot.open_water()
+        self.setup_pump()
+        time.sleep(3)
+        self.setup_pump()
+        self.open_water()
         time.sleep(watering_time)
         print 'Closing the ventile!'
-        Gardenbot.close_water()
+        self.close_water()
 
-
+    def setup_pump(self):
+        self.open_water()
+        time.sleep(3)
+        self.close_water()
+        time.sleep(1)
+        #self.water_plants(10)
 
     def open_water(self):
         Gardenbot.relay_close_circuit(self.relay_channel_ventile)
@@ -81,7 +89,7 @@ if __name__ == '__main__':
     gb = Gardenbot()
     gb.setup_pins()
     gb.close_water()
-    gb.measure_moisture(channel=moisture_sensor_channel)
+    gb.measure_moisture(channel=gb.moisture_sensor_channel)
     gb.close()
 
 
