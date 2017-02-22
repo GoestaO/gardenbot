@@ -44,7 +44,7 @@ class Gardenbot:
     def water_plants(self, watering_time=None):
         self.stop_sensor()
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-	    print now
+	print now
         if watering_time == None:
             watering_time = self.watering_time
         self.setup_pump()
