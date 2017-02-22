@@ -32,6 +32,13 @@ class Gardenbot:
             self.stop_sensor()
             self.close()
 
+    def start_sensor(self):
+        # print "starting the sensor..."
+        Gardenbot.relay_close_circuit(self.relay_channel_sensor)
+
+    def stop_sensor(self):
+        Gardenbot.relay_open_circuit(self.relay_channel_sensor)
+
     @staticmethod
     def relay_close_circuit(channel):
         GPIO.output(channel, False)
@@ -40,11 +47,11 @@ class Gardenbot:
     def relay_open_circuit(channel):
         GPIO.output(channel, True)
 
-    #This method waters the plants
+
     def water_plants(self, watering_time=None):
         self.stop_sensor()
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-	print now
+	    print now
         if watering_time == None:
             watering_time = self.watering_time
         self.setup_pump()
@@ -67,12 +74,7 @@ class Gardenbot:
     def close_water(self):
         Gardenbot.relay_open_circuit(self.relay_channel_ventile)
 
-    def start_sensor(self):
-        #print "starting the sensor..."
-        Gardenbot.relay_close_circuit(self.relay_channel_sensor)
 
-    def stop_sensor(self):
-        Gardenbot.relay_open_circuit(self.relay_channel_sensor)
 
     def close(self):
         GPIO.cleanup()
