@@ -6,6 +6,6 @@ if __name__ == "__main__":
     gb.start_sensor()
 
     soil_is_dry = Gardenbot.soil_is_dry(14)
-    gb.close_sensor()
+    gb.stop_sensor()
     print("Soil is dry: {}".format(soil_is_dry))
     gb.close()
