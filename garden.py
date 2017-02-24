@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import sys
-
+from datetime import datetime
 
 class Gardenbot:
     def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=30):
@@ -28,7 +28,7 @@ class Gardenbot:
             self.water_plants()
         else:
             self.close_water()
-            print 'No need to water, exit!'
+            #print 'No need to water, exit!'
             self.stop_sensor()
             self.close()
 
@@ -43,7 +43,8 @@ class Gardenbot:
     #This method waters the plants
     def water_plants(self, watering_time=None):
         self.stop_sensor()
-        print 'Let us water the plants!'
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	print now
         if watering_time == None:
             watering_time = self.watering_time
         self.setup_pump()
@@ -51,7 +52,6 @@ class Gardenbot:
         self.setup_pump()
         self.open_water()
         time.sleep(watering_time)
-        print 'Closing the ventile!'
         self.close_water()
 
     def setup_pump(self):
@@ -68,7 +68,7 @@ class Gardenbot:
         Gardenbot.relay_open_circuit(self.relay_channel_ventile)
 
     def start_sensor(self):
-        print "starting the sensor..."
+        #print "starting the sensor..."
         Gardenbot.relay_close_circuit(self.relay_channel_sensor)
 
     def stop_sensor(self):
@@ -78,7 +78,7 @@ class Gardenbot:
         GPIO.cleanup()
         sys.exit()
 
-    '''If the soil is wet enough, the sensor returns True, in other words: if the soil is too dry, it is false'''
+    '''If the soil is wet enough, the sensor returns True, in other words: if the soil is dry, it is false'''
 
     @staticmethod
     def soil_is_dry(channel):
