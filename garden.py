@@ -80,7 +80,7 @@ class Gardenbot:
         GPIO.cleanup()
         sys.exit()
 
-    '''If the soil is wet enough, the sensor returns True, in other words: if the soil is too dry, it is false'''
+    '''If the soil is wet enough, the sensor returns True, in other words: if the soil is dry, it is false'''
 
     @staticmethod
     def soil_is_dry(channel):

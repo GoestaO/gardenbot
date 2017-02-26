@@ -42,5 +42,17 @@ class User(db.Model):
     
     def is_anonymous(self):
         return False
-    
-    
+
+
+class Protocol(db.Model):
+    id = db.Column(db.BigInteger, primary_key=True)
+    watering_timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
+    duration = db.Column(db.Integer)
+
+    def __init__(self, *args, **kwargs):
+        super(Protocol, self).__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return '<Timestamp: {0}; Seconds: {1}'.format(self.watering_timestamp, self.duration)
+
+
