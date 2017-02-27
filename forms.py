@@ -1,6 +1,7 @@
 import wtforms
+from wtforms.fields import SubmitField
 from wtforms.validators import DataRequired, NumberRange
-
+from models import User
 
 class WaterForm(wtforms.Form):
     wateringTime = wtforms.IntegerField('Time (in seconds)', id='time',
@@ -17,10 +18,12 @@ class LoginForm(wtforms.Form):
     password = wtforms.PasswordField("Password: ", validators=[DataRequired])
     remember_me = wtforms.BooleanField("Remember me?",
                                        default=True)
+    submit = SubmitField("Log in")
 
     def validate(self):
-        if not super(LoginForm, self).validate():
-            return False
+        # if not super(LoginForm, self).validate():
+        #     return False
+        print(self.email.data)
         self.user = User.authenticate(self.email.data, self.password.data)
         if not self.user:
             self.email.errors.append("Invalid email or password.")
