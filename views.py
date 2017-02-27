@@ -1,6 +1,15 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash
 from forms import WaterForm, LoginForm
+from app import login_manager
+from flask import g
+from models import User
+from flask_login import current_user, login_user, logout_user, login_required
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 @app.route('/')
@@ -8,7 +17,9 @@ def homepage():
     form = WaterForm()
     return render_template('homepage.html', form=form)
 
+
 @app.route('/', methods=['POST'])
+@login_required
 def water_manually():
     form = WaterForm(request.form)
     if form.validate():
@@ -18,6 +29,7 @@ def water_manually():
     # else:
     #     form = WaterForm()
     return render_template('homepage.html', form=form)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

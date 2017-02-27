@@ -3,6 +3,7 @@
 
 <h3>Manual watering</h3> 
 <form action="{{ url_for('water_manually') }}" class="form form-vertical" method="post"> 
+
     {% for field in form %} 
         {{ form_field(field) }}
     {% endfor %}
