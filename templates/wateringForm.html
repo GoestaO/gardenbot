@@ -3,11 +3,12 @@
 
 <h3>Manual watering</h3> 
 <form action="{{ url_for('water_manually') }}" class="form form-vertical" method="post"> 
+    {{ form.hidden_tag() }}
+{#    {% for field in form if field.widget.input_type != 'hidden' %} #}
+    {{ form_field(form.wateringTime) }}
 
-    {% for field in form %} 
-        {{ form_field(field) }}
-    {% endfor %}
-<div class="form-group">
+{#    {% endfor %}#}
+    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-
 default">Start
