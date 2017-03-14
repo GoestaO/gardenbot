@@ -89,6 +89,9 @@ class Gardenbot:
     def soil_is_wet(channel):
         return GPIO.input(channel)
 
+    def test(self):
+        print("Hallo")
+
 
 if __name__ == '__main__':
     gb = Gardenbot()
