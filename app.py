@@ -1,6 +1,5 @@
 import connexion
-import os
-from flask import Flask, Session, g
+from flask import g
 from configuration import Configuration
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
@@ -25,6 +24,21 @@ bcrypt = Bcrypt(app.app)
 @app.app.before_request
 def _before_request():
     g.user = current_user
+
+
+# @app.app.before_request
+# def csrf_protect():
+#     if request.method == "POST":
+#         token = session.pop('_csrf_token', None)
+#         if not token or token != request.form.get('_csrf_token'):
+#             abort(403)
+#
+# def generate_csrf_token():
+#     if '_csrf_token' not in session:
+#         session['_csrf_token'] = '000b3d18-7f83-4515-ab66-99199cbbd074'
+#     return session['_csrf_token']
+
+# app.app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 
 if __name__ == "__main__":
