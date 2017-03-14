@@ -62,8 +62,9 @@ class Protocol(db.Model):
     watering_timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
     duration = db.Column(db.Integer)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, duration, *args, **kwargs):
         super(Protocol, self).__init__(*args, **kwargs)
+        self.duration = duration
 
     def __repr__(self):
         return '<Timestamp: {0}; Seconds: {1}'.format(self.watering_timestamp, self.duration)

@@ -4,7 +4,9 @@
 {% block content_title %}Log in {% endblock %}
 {% block content %}
 
-    <form action="{{ url_for('login', next=request.args.get('next','')) }}" class="form form-horizontal" method="post">
+    <form action="{{ url_for('login', next=request.args.get('next','')) }}" class="form form-horizontal" method="post"
+          role="form">
+        {{ form.hidden_tag() }}
         {{ form_field(form.email) }}
         {{ form_field(form.password) }}
         <div class="form-group">
@@ -23,3 +25,4 @@
     </form>
 {% endblock %}
 {% block aside %}{% endblock %}
+
