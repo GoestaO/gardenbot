@@ -1,4 +1,4 @@
-#from moisture import Gardenbot
+from run_api import Gardenbot
 import time
 import connexion
 from flask import Response
@@ -7,7 +7,8 @@ from . import authservice
 
 @authservice.requires_token
 def water_plants(seconds):
-
+    gb = Gardenbot()
+    gb.test()
     #print("Waiting now...")
     watering_time = int(seconds)
     time.sleep(watering_time)
