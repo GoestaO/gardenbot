@@ -1,20 +1,29 @@
-from run_api import Gardenbot
+from garden import Gardenbot
 import time
 import connexion
 from flask import Response
 #from moisture import Gardenbot
-from . import authservice
+import authservice
 
 @authservice.requires_token
 def water_plants(seconds):
     gb = Gardenbot()
-    gb.test()
-    #print("Waiting now...")
+    gb.setup_pins()
+    gb.close_water()
     watering_time = int(seconds)
-    time.sleep(watering_time)
-    #super(GardenbotAPI, self).water_plants(watering_time)
+    gb.water_plants(watering_time)
+    gb.close()
     msg = "The plants have been watered for {0} seconds".format(seconds)
     return Response(msg)
+
+@authservice.requires_token
+def check_moisture():
+    gb = Gardenbot()
+    gb.setup_pins()
+    gb.close_water()
+    gb.measure_moisture(channel=gb.moisture_sensor_channel)
+    gb.close()
+
 
 
 
