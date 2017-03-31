@@ -14,7 +14,7 @@ class Gardenbot:
         self.relay_channel_ventile = relay_channel_ventile
         self.relay_channel_sensor = relay_channel_sensor
         self.watering_time = watering_time
-        self.gardenlogger = Gardenlogger('/home/pi/gardenbot.log')
+        self.gardenlogger = Gardenlogger('/var/log/gardenbot.log')
 
     def setup_pins(self):
         GPIO.setup(self.moisture_sensor_channel, GPIO.IN)
