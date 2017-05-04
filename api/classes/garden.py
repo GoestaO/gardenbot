@@ -58,7 +58,7 @@ class Gardenbot:
 
         if watering_time == None:
             watering_time = self.watering_time
-        self.gardenlogger.info("Watering: {}".format(watering_time))        
+        self.gardenlogger.info("Watering: {}".format(watering_time))
         self.open_water()
         time.sleep(watering_time)
         self.close_water()

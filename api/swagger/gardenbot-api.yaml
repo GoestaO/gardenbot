@@ -33,8 +33,8 @@ paths:
           required: true
   /check:
     post:
-      summary: Checks wether the plants need water the soil
-      description: Checks wether the soil is dry or not and waters the plants if necessary for 60 seconds
+      summary: Checks wether the soil is wet or not
+      description: Checks wether the soil is wet or not
       operationId: classes.gardenbot-api.water_plants
       produces:
         - text/plain;
