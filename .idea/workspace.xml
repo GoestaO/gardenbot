@@ -2,7 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f86ce65-eee0-4550-86e0-71e77f812ff2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/fonts/glyphicons-halflings-regular.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/img/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/app.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/configuration.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/configure_moisture_sensor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/forms.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/garden.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/main.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/manage.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/models.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/scripts/create_db.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/css/main.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/css/normalize.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/css/normalize.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/fonts/glyphicons-halflings-regular.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/js/main.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/js/vendor/jquery-1.11.2.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/static/js/vendor/modernizr-2.8.3.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/base.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/base_bak.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/form.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/homepage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/login.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/macros/form_field.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/templates/wateringForm.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="gardenbot.iws" />
@@ -42,8 +71,8 @@
       <file leaf-file-name="garden.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/classes/garden.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="51" column="17" lean-forward="false" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+            <state relative-caret-position="369">
+              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -192,6 +221,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="smartgarden" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartgarden" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartgarden" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -628,7 +671,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491334421615</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Restructured">
+      <created>1493926638312</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1493926638312</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -847,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/classes/garden.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="51" column="17" lean-forward="false" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+        <state relative-caret-position="369">
+          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
