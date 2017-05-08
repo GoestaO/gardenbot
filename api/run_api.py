@@ -1,5 +1,6 @@
 import connexion
-import sys, os
+import sys
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__name__))
 sys.path.extend(dir_path)
