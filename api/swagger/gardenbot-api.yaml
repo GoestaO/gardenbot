@@ -33,9 +33,9 @@ paths:
           required: true
   /check:
     post:
-      summary: Checks wether the soil is wet or not
+      summary: Checks whether the soil is wet or not
       description: Checks wether the soil is wet or not
-      operationId: classes.gardenbot-api.water_plants
+      operationId: classes.gardenbot-api.check_moisture
       produces:
         - text/plain;
       responses:
@@ -46,11 +46,6 @@ paths:
           examples:
             "text/plain": "Watering the plants..."
       parameters:
-        - name: seconds
-          in: path
-          description: Time in seconds, the plants are supposed to be watered
-          required: true
-          type: string
         - name: API-Key
           in: header
           type: string

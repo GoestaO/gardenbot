@@ -8,13 +8,14 @@ from gardenlogger import Gardenlogger
 
 
 class Gardenbot:
-    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=30):
+    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=90):
         GPIO.setmode(GPIO.BCM)
         self.moisture_sensor_channel = moisture_sensor_channel
         self.relay_channel_ventile = relay_channel_ventile
         self.relay_channel_sensor = relay_channel_sensor
         self.watering_time = watering_time
-        self.gardenlogger = Gardenlogger('/var/log/gardenbot.log')
+        self.gl = Gardenlogger("/var/log/gardenbot.log")
+
 
     def setup_pins(self):
         GPIO.setup(self.moisture_sensor_channel, GPIO.IN)
@@ -30,11 +31,11 @@ class Gardenbot:
 
         # wait a bit
         time.sleep(1)
-        if Gardenbot.soil_is_wet(channel):
+        if not Gardenbot.soil_is_wet(channel):
             self.water_plants()
         else:
             self.close_water()
-            self.gardenlogger.info("Wet enough".format())
+            self.gl.logger.info("Wet enough".format())
             self.stop_sensor()
             self.close()
 
@@ -58,7 +59,8 @@ class Gardenbot:
 
         if watering_time == None:
             watering_time = self.watering_time
-        self.gardenlogger.info("Watering: {}".format(watering_time))
+        self.gl.logger.info("Watering: {}".format(watering_time))
+        #self.setup_pump()
         self.open_water()
         time.sleep(watering_time)
         self.close_water()
@@ -79,15 +81,14 @@ class Gardenbot:
     def close(self):
         GPIO.cleanup()
 
+    def exit(self):
+        sys.exit()
+
     '''Returns True, if the soil is wet enough and False if it is too dry'''
 
     @staticmethod
     def soil_is_wet(channel):
-        return GPIO.input(channel)
-
-    def test(self):
-        print("Hallo")
-
+        return not GPIO.input(channel)
 
 if __name__ == '__main__':
     gb = Gardenbot()
@@ -95,3 +96,4 @@ if __name__ == '__main__':
     gb.close_water()
     gb.measure_moisture(channel=gb.moisture_sensor_channel)
     gb.close()
+    gb.exit()

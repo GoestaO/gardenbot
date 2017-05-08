@@ -82,6 +82,8 @@ class Gardenbot:
 
     def close(self):
         GPIO.cleanup()
+
+    def exit(self):
         sys.exit()
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
@@ -97,3 +99,4 @@ if __name__ == '__main__':
     gb.close_water()
     gb.measure_moisture(channel=gb.moisture_sensor_channel)
     gb.close()
+    gb.exit()

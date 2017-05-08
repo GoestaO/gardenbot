@@ -25,6 +25,3 @@ def _before_request():
     g.user = current_user
 
 
-if __name__ == "__main__":
-    app = Flask.App(__name__)
-    app.run(port=8080)
