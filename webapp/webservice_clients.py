@@ -9,6 +9,7 @@ base_url_test = 'http://gardenbot.local:5000/v1.0/'
 
 def water_plants(seconds):
     url = "{}/watering/{}".format(base_url, str(seconds))
+    print(url)
     r = requests.post(url=url, headers=headers)
     return r
 
@@ -18,6 +19,7 @@ def check():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: text/html',
                'API-Key': '000b3d18-7f83-4515-ab66-99199cbbd074'}
     url = "{}check".format(base_url)
+    print(url)
     r = requests.post(url=url, headers=header)
     return r.text
 
