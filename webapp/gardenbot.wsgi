@@ -1,8 +1,9 @@
 import sys
+import app
 sys.stdout = sys.stderr
  
 sys.path.append('/var/www') 
 sys.path.append('/var/www/gardenbot')
  
-from app import app as application
+from main import app as application
 

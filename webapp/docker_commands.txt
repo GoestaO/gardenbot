@@ -1,0 +1,5 @@
+sudo docker build -t gardenbot_docker:latest .
+sudo docker run -it -p 5000:5000 gardenbot_docker
+docker save gardenbot_docker -o /home/goesta/gardenbot_docker
+
+
