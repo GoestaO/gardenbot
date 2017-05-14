@@ -5,7 +5,7 @@ from app import login_manager
 from flask import g, session
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
-from webservice_clients import water_plants, check
+from webservices import gardenbot_client, weather_client
 
 @login_manager.user_loader
 def load_user(id):
@@ -14,8 +14,8 @@ def load_user(id):
 
 @app.route('/')
 def homepage():
-    form = WaterForm()
-    return render_template('homepage.html', form=form)
+    current_weather = weather_client.get_current_weather()
+    return render_template('homepage.html', current_weather=current_weather)
 
 
 @app.route('/water')
@@ -27,8 +27,9 @@ def water():
 
 
 @app.route('/status')
+@login_required
 def status():
-    soil_is_wet = check()
+    soil_is_wet = gardenbot_client.check()
     return render_template("status.html", soil_is_wet=soil_is_wet)
 
 
@@ -38,7 +39,7 @@ def water_manually():
     form = WaterForm(request.form)
     if form.validate():
         time = request.form.get('wateringTime')
-        r = water_plants(time)
+        r = gardenbot_client.water_plants(time)
         if r.status_code == 200:
             flash(r.text)
         return redirect(url_for('water'))

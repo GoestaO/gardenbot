@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-{#{% include "wateringForm.html" %}#}
+    <table>
+        <tr>
+            <td>Temperature: </td>
+            <td>{{ current_weather.get('main').get('temp') }} °C</td>
+        </tr>
+        <tr>
+            <td>Humidity: </td>
+            <td>{{ current_weather.get('main').get('humidity') }} %</td>
+        </tr>
+    </table>
 {% endblock %}
 
 {% block aside %}
