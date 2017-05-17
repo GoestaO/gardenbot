@@ -27,20 +27,28 @@
 <div class="header-container">
     <header class="wrapper clearfix">
         <h1 class="title">| Gardenbot</h1>
-        <nav>
-            <table>
-                <tr>
-                    <td><a href="{{ url_for('homepage') }}">Home</a></td>
-                    <td><a href="{{ url_for('water_manually') }}">Water manually</a></td>
-                </tr>
-                <tr>
-                    <td><a href="{{ url_for('status') }}">Soil status</a></td>
-                    <td><a href="{{ url_for('logout') }}">Logout</a></td>
-                </tr>
-                {#                <li><a href="#">nav ul li a</a></li>#}
-                {#                <li><a href="#">nav ul li a</a></li>#}
-            </table>
-        </nav>
+        {#        <nav>#}
+        {#            <table>#}
+        {#                <tr>#}
+        {#                    <td><a href="{{ url_for('homepage') }}">Home</a></td>#}
+        {#                    <td><a href="{{ url_for('water_manually') }}">Water manually</a></td>#}
+        {#                </tr>#}
+        {#                <tr>#}
+        {#                    <td><a href="{{ url_for('status') }}">Soil status</a></td>#}
+        {% if current_user.is_authenticated %}
+            <nav>
+                <td><a href="{{ url_for('logout') }}">Logout</a></td>
+            </nav>
+        {% else %}
+            <nav>
+                <td><a href="{{ url_for('login') }}">Login</a></td>
+            </nav>
+        {% endif %}
+        {#                </tr>#}
+        {##}
+        {#                <li><a href="#">nav ul li a</a></li>#}
+        {#            </table>#}
+        {#        </nav>#}
     </header>
 </div>
 

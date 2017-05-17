@@ -7,6 +7,7 @@ from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))

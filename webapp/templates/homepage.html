@@ -2,12 +2,21 @@
 {% block content %}
     <table>
         <tr>
-            <td>Temperature: </td>
-            <td>{{ current_weather.get('main').get('temp') }} °C</td>
+            <td>
+                <a href="{{ url_for('water_manually') }}">
+                    <img src="{{ url_for('static', filename='img/water_can.png') }}" height="64" width="64">
+                </a>
+            </td>
+            <td>
+                <a href="{{ url_for('status') }}">
+                    <img src="{{ url_for('static', filename='img/sensor.jpg') }}" height="64" width="64">
+                </a>
+            </td>
         </tr>
         <tr>
-            <td>Humidity: </td>
-            <td>{{ current_weather.get('main').get('humidity') }} %</td>
+            <td><img src="{{ url_for('static', filename='img/temperature.jpg') }}" height="42" width="42"></td>
+            <td>{{ current_weather.get('main').get('temp')|round|int }} °C</td>
+            <td></td>
         </tr>
     </table>
 {% endblock %}
