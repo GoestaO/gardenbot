@@ -27,6 +27,6 @@ def check_moisture():
     soil_is_wet = Gardenbot.soil_is_wet(14)
     gb.stop_sensor()
     gb.close()
-    msg = "Soil is wet: {}".format(soil_is_wet)
+    msg = "{}".format(soil_is_wet)
     return Response(msg)
 

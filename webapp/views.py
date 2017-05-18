@@ -6,7 +6,7 @@ from flask import g, session
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-
+import time
 
 @login_manager.user_loader
 def load_user(id):
@@ -27,11 +27,11 @@ def water():
     return redirect(url_for('login'))
 
 
-@app.route('/status')
-@login_required
+@app.route("/status", methods=['GET'])
 def status():
     soil_is_wet = gardenbot_client.check()
-    return render_template("status.html", soil_is_wet=soil_is_wet)
+    return soil_is_wet
+    # return render_template("status.html", soil_is_wet=soil_is_wet)
 
 
 @app.route('/water', methods=['POST'])
@@ -67,5 +67,10 @@ def logout():
     logout_user()
     flash('You were logged out')
     return redirect(request.args.get("next") or url_for("homepage"))
+
+
+@app.route("/time", methods=['GET'])
+def ajax():
+    return time.strftime("%c")
 
 

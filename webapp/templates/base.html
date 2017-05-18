@@ -14,8 +14,9 @@
     {% block extra_styles %}{% endblock %}
 
     {#Scripts#}
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="{{ url_for('static', filename='js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
