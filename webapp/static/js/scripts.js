@@ -1,5 +1,7 @@
 $( document ).ready(function() {
     $("#loadingAnimation").hide();
+    $("#ok").hide();
+    $("#not_ok").hide();
 });
 
 function getTime() {
@@ -25,6 +27,11 @@ function getSoilStatus() {
         },
         success: function (data) {
             $("#loadingAnimation").hide();
+            if(data = 'True'){
+                $("#ok").show();
+            }else {
+                $("#not_ok").show();
+            }
             $('#status').html(data);
         }
     });

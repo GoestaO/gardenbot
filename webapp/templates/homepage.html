@@ -26,7 +26,12 @@
                     <div id="loadingAnimation">
                         <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                     </div>
-                    <div id="status"></div>
+                    <div id="ok">
+                         <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
+                    </div>
+                    <div id="not_ok">
+                         <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -36,6 +41,7 @@
                 <td></td>
             </tr>
         </table>
+    <div id="status">Hallo</div>
     </div>
 {% endblock %}
 
