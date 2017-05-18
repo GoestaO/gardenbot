@@ -1,31 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            alignment: center;
+        }
+    </style>
     <div align="center">
 
-        <table style="border-color: #222222; border-width: 2px;">
+        <table align="center;">
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ url_for('water_manually') }}">
                         <img src="{{ url_for('static', filename='img/water_can.png') }}" height="64" width="64">
                     </a>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="text-align: center;">
 
-                    <input type="image" src="{{ url_for('static', filename='img/sensor.jpg') }}" height="64" width="64"
+                    <input type="image" src="{{ url_for('static', filename='img/sensor.ico') }}" height="64" width="64"
                            onclick="getSoilStatus();"/>
                 </td>
                 <td>
                     <div id="loadingAnimation">
-                        <img src="{{ url_for('static', filename='img/loading.gif') }}" height="96" width="96">
+                        <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                     </div>
                     <div id="status"></div>
                 </td>
             </tr>
             <tr>
-                {#                <td><img src="{{ url_for('static', filename='img/loading.gif') }}"></td>#}
-                <td><img src="{{ url_for('static', filename='img/temperature.jpg') }}" height="42" width="42"></td>
+                <td style="text-align: center;"><img src="{{ url_for('static', filename='img/temperature.jpg') }}"
+                                                     height="64" width="64"></td>
                 <td>{{ current_weather.get('main').get('temp')|round|int }} °C</td>
                 <td></td>
             </tr>
