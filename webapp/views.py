@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from forms import WaterForm, LoginForm
 from app import login_manager
 from flask import g, session
@@ -7,6 +7,7 @@ from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 import time
+
 
 @login_manager.user_loader
 def load_user(id):
@@ -19,12 +20,10 @@ def homepage():
     return render_template('homepage.html', current_weather=current_weather)
 
 
-@app.route('/water')
+@app.route('/water', methods=['GET'])
 def water():
-    if current_user.is_authenticated:
-        form = WaterForm(request.form)
-        return render_template('water.html', form=form)
-    return redirect(url_for('login'))
+    response = gardenbot_client.water_plants(10)
+    return jsonify(response.text, response.status_code)
 
 
 @app.route("/status", methods=['GET'])
@@ -34,7 +33,7 @@ def status():
     # return render_template("status.html", soil_is_wet=soil_is_wet)
 
 
-@app.route('/water', methods=['POST'])
+@app.route('/waterManually', methods=['POST'])
 @login_required
 def water_manually():
     form = WaterForm(request.form)
@@ -72,5 +71,3 @@ def logout():
 @app.route("/time", methods=['GET'])
 def ajax():
     return time.strftime("%c")
-
-

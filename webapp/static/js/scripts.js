@@ -1,9 +1,19 @@
-$( document ).ready(function() {
-    $("#loadingAnimation").hide();
-    $("#ok").hide();
-    $("#not_ok").hide();
+$(document).ready(function () {
+    $("#loading_animation_sensor").hide();
+    $("#loading_animation_water").hide();
+    $("#ok_sensor").hide();
+    $("#not_ok_sensor").hide();
+    $("#ok_water").hide();
+    $("#not_ok_water").hide();
 });
 
+function disableInput() {
+    $('input').prop('disabled', true);
+}
+
+function enableInput() {
+    $('input').prop('disabled', false);
+}
 function getTime() {
     $.ajax({
         type: "GET",
@@ -22,17 +32,33 @@ function getSoilStatus() {
         type: "GET",
         url: "/status",
         beforeSend: function () {
-            $("#status").hide();
-            $("#loadingAnimation").show();
+            $("#loading_animation_sensor").show();
+            disableInput();
         },
         success: function (data) {
-            $("#loadingAnimation").hide();
-            if(data = 'True'){
-                $("#ok").show();
-            }else {
-                $("#not_ok").show();
+            $("#loading_animation_sensor").hide();
+            if (data = 'True') {
+                $("#ok_sensor").show();
+            } else {
+                $("#not_ok_sensor").show();
             }
-            $('#status').html(data);
+            enableInput();
+        }
+    });
+}
+
+function waterPlants() {
+    $.ajax({
+        type: "GET",
+        url: "/water",
+        beforeSend: function () {
+            $("#loading_animation_water").show();
+            disableInput();
+        },
+        success: function (data) {
+            $("#loading_animation_water").hide();
+            $("#ok_water").show();
+            enableInput();
         }
     });
 }

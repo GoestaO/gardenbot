@@ -2,46 +2,68 @@
 {% block content %}
     <style>
         table, th, td {
-            border: 1px solid black;
             alignment: center;
+        }
+
+        td.symbol {
+            width: 100px;
+        }
+
+        td.status {
+
         }
     </style>
     <div align="center">
 
-        <table align="center;">
-            <tr>
-                <td style="text-align: center;">
-                    <a href="{{ url_for('water_manually') }}">
-                        <img src="{{ url_for('static', filename='img/water_can.png') }}" height="64" width="64">
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center;">
+        <table>
+            {% if current_user.is_authenticated %}
+                <tr>
+                    <td class="symbol">
+                        <input type="image" id="water_can" src="{{ url_for('static', filename='img/water_can.png') }}"
+                               height="64" width="64" onclick="waterPlants();"/>
+                    </td>
+                    <td>
+                        <div id="loading_animation_water">
+                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
+                        </div>
+                        <div id="ok_water">
+                            <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
+                        </div>
+                        <div id="not_ok_water">
+                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="symbol">
 
-                    <input type="image" src="{{ url_for('static', filename='img/sensor.ico') }}" height="64" width="64"
-                           onclick="getSoilStatus();"/>
-                </td>
-                <td>
-                    <div id="loadingAnimation">
-                        <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
-                    </div>
-                    <div id="ok">
-                         <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
-                    </div>
-                    <div id="not_ok">
-                         <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
-                    </div>
-                </td>
-            </tr>
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.ico') }}"
+                               height="64"
+                               width="64"
+                               onclick="getSoilStatus();"/>
+                    </td>
+                    <td>
+                        <div id="loading_animation_sensor">
+                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
+                        </div>
+                        <div id="ok_sensor">
+                            <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
+                        </div>
+                        <div id="not_ok_sensor">
+                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+
             <tr>
-                <td style="text-align: center;"><img src="{{ url_for('static', filename='img/temperature.jpg') }}"
-                                                     height="64" width="64"></td>
+                <td class="symbol">
+                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
+                         height="64" width="64"></td>
                 <td>{{ current_weather.get('main').get('temp')|round|int }} °C</td>
                 <td></td>
             </tr>
         </table>
-    <div id="status">Hallo</div>
     </div>
 {% endblock %}
 
