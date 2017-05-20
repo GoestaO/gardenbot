@@ -3,6 +3,7 @@
     <style>
         table, th, td {
             alignment: center;
+            border: 2px;
         }
 
         td.symbol {
@@ -29,15 +30,15 @@
                         <div id="ok_water">
                             <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
                         </div>
-                        <div id="not_ok_water">
-                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
-                        </div>
+{#                        <div id="not_ok_water">#}
+{#                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">#}
+{#                        </div>#}
                     </td>
                 </tr>
                 <tr>
                     <td class="symbol">
 
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.ico') }}"
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
                                height="64"
                                width="64"
                                onclick="getSoilStatus();"/>
@@ -47,10 +48,10 @@
                             <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                         </div>
                         <div id="ok_sensor">
-                            <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
+                            <img src="{{ url_for('static', filename='img/wet.png') }}" height="64" width="64">
                         </div>
                         <div id="not_ok_sensor">
-                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">
+                            <img src="{{ url_for('static', filename='img/dry_soil.png') }}" height="64" width="64">
                         </div>
                     </td>
                 </tr>

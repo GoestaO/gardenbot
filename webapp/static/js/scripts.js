@@ -1,10 +1,5 @@
 $(document).ready(function () {
-    $("#loading_animation_sensor").hide();
-    $("#loading_animation_water").hide();
-    $("#ok_sensor").hide();
-    $("#not_ok_sensor").hide();
-    $("#ok_water").hide();
-    $("#not_ok_water").hide();
+    resetPage();
 });
 
 function disableInput() {
@@ -13,7 +8,20 @@ function disableInput() {
 
 function enableInput() {
     $('input').prop('disabled', false);
+    $("#ok_sensor").delay(5000).fadeOut();
+    $("#not_ok_sensor").delay(5000).fadeOut();
+    $("#ok_water").delay(5000).fadeOut();
 }
+
+function resetPage(){
+    $("#loading_animation_sensor").hide();
+    $("#loading_animation_water").hide();
+    $("#ok_sensor").hide();
+    $("#not_ok_sensor").hide();
+    $("#ok_water").hide();
+    $("#not_ok_water").hide();
+}
+
 function getTime() {
     $.ajax({
         type: "GET",
@@ -37,9 +45,9 @@ function getSoilStatus() {
         },
         success: function (data) {
             $("#loading_animation_sensor").hide();
-            if (data = 'True') {
+            if (data == 'True') {
                 $("#ok_sensor").show();
-            } else {
+            } else if (data == 'False') {
                 $("#not_ok_sensor").show();
             }
             enableInput();
