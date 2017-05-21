@@ -3,7 +3,6 @@
     <style>
         table, th, td {
             alignment: center;
-            border: 2px;
         }
 
         td.symbol {
@@ -11,18 +10,33 @@
         }
 
         td.status {
-
+            alignment: center;
         }
     </style>
     <div align="center">
 
         <table>
-            {% if current_user.is_authenticated %}
-                <tr>
+            <tr>
+                {% if current_user.is_authenticated %}
                     <td class="symbol">
-                        <input type="image" id="water_can" src="{{ url_for('static', filename='img/water_can.png') }}"
+                        <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"
                                height="64" width="64" onclick="waterPlants();"/>
                     </td>
+                    <td class="symbol">
+
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
+                               height="64"
+                               width="64"
+                               onclick="getSoilStatus();"/>
+                    </td>
+                {% endif %}
+                <td class="symbol">
+                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
+                         height="64" width="64">
+                </td>
+            </tr>
+            <tr>
+                {% if current_user.is_authenticated %}
                     <td>
                         <div id="loading_animation_water">
                             <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
@@ -30,18 +44,6 @@
                         <div id="ok_water">
                             <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
                         </div>
-{#                        <div id="not_ok_water">#}
-{#                            <img src="{{ url_for('static', filename='img/not_ok.svg') }}" height="64" width="64">#}
-{#                        </div>#}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="symbol">
-
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
-                               height="64"
-                               width="64"
-                               onclick="getSoilStatus();"/>
                     </td>
                     <td>
                         <div id="loading_animation_sensor">
@@ -54,16 +56,11 @@
                             <img src="{{ url_for('static', filename='img/dry_soil.png') }}" height="64" width="64">
                         </div>
                     </td>
-                </tr>
-            {% endif %}
-
-            <tr>
-                <td class="symbol">
-                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
-                         height="64" width="64"></td>
-                <td>{{ current_weather.get('main').get('temp')|round|int }} °C</td>
-                <td></td>
+                {% endif %}
+                <td class="status">{{ current_weather.get('main').get('temp')|round|int }} °C</td>
             </tr>
+
+
         </table>
     </div>
 {% endblock %}

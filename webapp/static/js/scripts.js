@@ -22,23 +22,12 @@ function resetPage(){
     $("#not_ok_water").hide();
 }
 
-function getTime() {
-    $.ajax({
-        type: "GET",
-        url: '/time',
-        success: function (data) {
-            // data is ur summary
-            $('#time').html(data);
-        }
-
-    });
-
-}
-
 function getSoilStatus() {
+    var documentURL = document.URL;
+    var target = documentURL.concat("status");
     $.ajax({
         type: "GET",
-        url: "/status",
+        url: target,
         beforeSend: function () {
             $("#loading_animation_sensor").show();
             disableInput();
@@ -56,9 +45,11 @@ function getSoilStatus() {
 }
 
 function waterPlants() {
+    var documentURL = document.URL;
+    var target = documentURL.concat("water");
     $.ajax({
         type: "GET",
-        url: "/water",
+        url: target,
         beforeSend: function () {
             $("#loading_animation_water").show();
             disableInput();
