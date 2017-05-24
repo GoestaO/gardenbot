@@ -60,6 +60,11 @@ def login():
         form = LoginForm()
     return render_template("login.html", form=form)
 
+@app.route("/login", methods=["POST"])
+def login_without_form(data: dict):
+    username = data("username")
+    password = data("password")
+
 
 @app.route("/logout")
 def logout():
