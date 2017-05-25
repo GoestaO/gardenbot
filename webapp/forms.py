@@ -23,6 +23,8 @@ class LoginForm(wtforms.Form):
     def validate(self):
         self.user = User.authenticate(self.email.data, self.password.data)
         if not self.user:
-            self.email.errors.append("Invalid email or password.")
+            errors = list(self.email.errors)
+            errors.append("Invalid email or password.")
+            self.email.errors = tuple(errors)
             return False
         return True

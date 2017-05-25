@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash, jsonify
+from flask import render_template, request, redirect, url_for, flash, jsonify, Response
 from forms import WaterForm, LoginForm
 from app import login_manager
 from flask import g, session
@@ -7,6 +7,7 @@ from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 import time
+import json
 
 
 @login_manager.user_loader
@@ -60,19 +61,9 @@ def login():
         form = LoginForm()
     return render_template("login.html", form=form)
 
-@app.route("/login", methods=["POST"])
-def login_without_form(data: dict):
-    username = data("username")
-    password = data("password")
-
 
 @app.route("/logout")
 def logout():
     logout_user()
     flash('You were logged out')
     return redirect(request.args.get("next") or url_for("homepage"))
-
-
-@app.route("/time", methods=['GET'])
-def ajax():
-    return time.strftime("%c")
