@@ -4,7 +4,7 @@ from models import User
 import requests
 from forms import LoginForm
 from flask import request, Response
-from flask_login import login_user
+from flask_login import login_user, logout_user
 import json
 
 class TestCase(unittest.TestCase):
@@ -45,9 +45,9 @@ class TestCase(unittest.TestCase):
         response = self.app.get("/")
         self.assertEqual(response.status_code, 200, "Error: '/' is 404")
 
-    def test_status(self):
-        response = self.app.get("/status")
-        self.assertEqual(response.status_code, 200, "Error: /status is 404")
+    # def test_status(self):
+    #     response = self.app.get("/status")
+    #     self.assertEqual(response.status_code, 200, "Error: /status is 404")
 
     def test_authenticate(self):
         test_user = User.authenticate("test123@huhu.com", "huhu")
@@ -62,6 +62,11 @@ class TestCase(unittest.TestCase):
         content_type = "application/x-www-form-urlencoded"
         response = self.app.post('/login', data=data, content_type=content_type)
         self.assertTrue(response.status_code is not None, "Error in Login via Post: Not found")
+        print(self.logout())
+
+
+    def logout(self):
+        return self.app.get('/logout', follow_redirects=True)
 
 
 if __name__ == '__main__':

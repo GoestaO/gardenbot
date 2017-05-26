@@ -31,31 +31,17 @@
                     <td class="symbol">
                         <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"
                                height="64" width="64" onclick="waterPlants();"/>
-                    </td>
-                    <td class="symbol">
-
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
-                               height="64"
-                               width="64"
-                               onclick="getSoilStatus();"/>
-                    </td>
-                {% endif %}
-                <td class="symbol">
-                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
-                         height="64" width="64">
-                </td>
-            </tr>
-            <tr>
-                {% if current_user.is_authenticated %}
-                    <td>
                         <div id="loading_animation_water">
                             <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                         </div>
                         <div id="ok_water">
                             <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
                         </div>
-                    </td>
-                    <td>
+                    <td class="symbol">
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
+                               height="64"
+                               width="64"
+                               onclick="getSoilStatus();"/>
                         <div id="loading_animation_sensor">
                             <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                         </div>
@@ -67,10 +53,12 @@
                         </div>
                     </td>
                 {% endif %}
-                <td class="status">{{ current_weather.get('main').get('temp')|round|int }} °C</td>
+                <td class="symbol">
+                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
+                         height="64" width="64">
+                    {{ current_weather.get('main').get('temp')|round|int }} °C
+                </td>
             </tr>
-
-
         </table>
     </div>
 {% endblock %}

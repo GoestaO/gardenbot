@@ -13,7 +13,7 @@ function enableInput() {
     $("#ok_water").delay(5000).fadeOut();
 }
 
-function resetPage(){
+function resetPage() {
     $("#loading_animation_sensor").hide();
     $("#loading_animation_water").hide();
     $("#ok_sensor").hide();
@@ -30,7 +30,7 @@ function getSoilStatus() {
         url: target,
         beforeSend: function () {
             $("#loading_animation_sensor").show();
-            disableInput();
+            $("#sensor").hide();
         },
         success: function (data) {
             $("#loading_animation_sensor").hide();
@@ -39,7 +39,8 @@ function getSoilStatus() {
             } else if (data == 'False') {
                 $("#not_ok_sensor").show();
             }
-            enableInput();
+            $("#ok_sensor").delay(5000).hide('fast');
+            $("#sensor").delay(5100).show('fast');
         }
     });
 }
@@ -51,13 +52,14 @@ function waterPlants() {
         type: "GET",
         url: target,
         beforeSend: function () {
+            $("#water_can").hide();
             $("#loading_animation_water").show();
-            disableInput();
         },
         success: function (data) {
             $("#loading_animation_water").hide();
             $("#ok_water").show();
-            enableInput();
+            $("#ok_water").delay(5000).hide('fast');
+            $("#water_can").delay(5100).show('fast');
         }
     });
 }

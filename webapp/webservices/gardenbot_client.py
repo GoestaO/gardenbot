@@ -8,7 +8,7 @@ base_url_test = 'http://gardenbot.local:5000/v1.0/'
 base_url_remote = "https://797e6e7778.dataplicity.io/v1.0/"
 
 def water_plants(seconds):
-    url = "{}/watering/{}".format(base_url_local, str(seconds))
+    url = "{}/watering/{}".format(base_url_remote, str(seconds))
     r = requests.post(url=url, headers=headers)
     return r
 
@@ -17,7 +17,7 @@ def water_plants(seconds):
 def check():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: text/html',
                'API-Key': '000b3d18-7f83-4515-ab66-99199cbbd074'}
-    url = "{}check".format(base_url_local)
+    url = "{}check".format(base_url_remote)
     r = requests.post(url=url, headers=header)
     # text = check()
     # print(text)
