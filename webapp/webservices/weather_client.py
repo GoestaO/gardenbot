@@ -1,7 +1,7 @@
 from pprint import pprint
 import requests
 
-city_id = 2885657
+city_id = 7290255
 APIKEY="79e49fb1bc94e6f20e03087f81e4bb5e"
 # temp = json.get('main').get('temp')
 
