@@ -23,7 +23,7 @@ def homepage():
 
 @app.route('/water', methods=['GET'])
 def water():
-    response = gardenbot_client.water_plants(2)
+    response = gardenbot_client.water_plants(30)
     return jsonify(response.text, response.status_code)
 
 
