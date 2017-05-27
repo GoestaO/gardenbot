@@ -40,6 +40,7 @@ function getSoilStatus() {
                 $("#not_ok_sensor").show();
             }
             $("#ok_sensor").delay(5000).hide('fast');
+            $("#not_ok_sensor").delay(5000).hide('fast');
             $("#sensor").delay(5100).show('fast');
         }
     });

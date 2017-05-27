@@ -38,7 +38,7 @@
                             <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
                         </div>
                     <td class="symbol">
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/soil.png') }}"
                                height="64"
                                width="64"
                                onclick="getSoilStatus();"/>
@@ -53,10 +53,20 @@
                         </div>
                     </td>
                 {% endif %}
+            </tr>
+            <tr>
                 <td class="symbol">
-                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"
+                    {#                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"#}
+                    {#                         height="64" width="64">#}
+
+                    <img src="{{ weather_icon_url }}"
                          height="64" width="64">
                     {{ current_weather.get('main').get('temp')|round|int }} °C
+                </td>
+                <td class="symbol">
+                    <img src="{{ url_for('static', filename='img/humidity.png') }}"
+                         height="64" width="64">
+                    {{ current_weather.get('main').get('humidity')|round|int }} %
                 </td>
             </tr>
         </table>

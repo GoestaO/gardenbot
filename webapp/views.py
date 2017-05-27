@@ -18,7 +18,8 @@ def load_user(id):
 @app.route('/')
 def homepage():
     current_weather = weather_client.get_current_weather()
-    return render_template('homepage.html', current_weather=current_weather)
+    weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
+    return render_template('homepage.html', current_weather=current_weather, weather_icon_url=weather_icon_url)
 
 
 @app.route('/water', methods=['GET'])

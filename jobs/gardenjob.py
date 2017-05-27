@@ -59,10 +59,9 @@ class Gardenbot:
     def water_plants(self, watering_time=None):
         self.stop_sensor()
 
-        if watering_time == None:
+        if watering_time is None:
             watering_time = self.watering_time
-        self.gl.logger.info("Watering: {}".format(watering_time))
-        #self.setup_pump()
+        self.gl.logger.info("Watering {}".format(watering_time))
         self.open_water()
         time.sleep(watering_time)
         self.close_water()

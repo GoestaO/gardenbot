@@ -62,7 +62,6 @@ class TestCase(unittest.TestCase):
         content_type = "application/x-www-form-urlencoded"
         response = self.app.post('/login', data=data, content_type=content_type)
         self.assertTrue(response.status_code is not None, "Error in Login via Post: Not found")
-        print(self.logout())
 
 
     def logout(self):
