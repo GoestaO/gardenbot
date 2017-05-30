@@ -1,9 +1,8 @@
-from garden import Gardenbot
+from api.classes.garden import Gardenbot
 import time
-import connexion
 from flask import Response
-# from moisture import Gardenbot
 import authservice
+import json
 
 
 @authservice.requires_token
@@ -29,4 +28,13 @@ def check_moisture():
     gb.close()
     msg = "{}".format(soil_is_wet)
     return Response(msg)
+
+
+@authservice.requires_token
+def get_data():
+    with open("/home/pi/gardenbot/gardenbot.log") as f:
+        lines = f.readlines()[-60:]
+        lines = reversed(lines)
+        return json.dumps(list((line.split(";") for line in lines)))
+
 

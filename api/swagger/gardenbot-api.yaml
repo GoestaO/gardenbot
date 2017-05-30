@@ -50,3 +50,22 @@ paths:
           in: header
           type: string
           required: true
+  /history:
+    get:
+      summary: Returns watering activities
+      description: Returns the watering activities of the last 5 days
+      operationId: classes.gardenbot-api.get_data
+      produces:
+      - application/json;
+      responses:
+        200:
+          description: history response
+          schema:
+            type: string
+          examples:
+            "text/plain": "Showing the activity log"
+      parameters:
+        - name: API-Key
+          in: header
+          type: string
+          required: true
