@@ -89,18 +89,22 @@ def get_history_data():
 
 
 @app.route("/history")
-def show_history(chartID='chart_ID', chart_type='line', chart_height=350):
+def show_history():
     json = gardenbot_client.get_history()
     for item in json:
         if str(item[1]).__contains__("INFO: Wet enough"):
             item[1] = 0
         else:
-            item[1] = 60
-    print([item[1] for item in json])
+            item[1] = 1
+    chartID = 'chart_ID'
+    chart_type = 'line'
+    chart_height = 350
     chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
     series = [{"data": json}]
-    title = {"text": 'My Title'}
-    xAxis = {"categories": ['xAxis Data1', 'xAxis Data2', 'xAxis Data3']}
-    yAxis = {"title": {"text": 'yAxis Label'}}
+
+    title = {"text": 'Watering activities'}
+    xAxis = {"categories": ['Timestamp'], "type": "datetime"}
+    yAxis = {"title": {"text": 'Watering'}}
+
     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
                            yAxis=yAxis)
