@@ -63,11 +63,11 @@
                          height="64" width="64">
                     {{ current_weather.get('main').get('temp')|round|int }} °C
                 </td>
-                <td class="symbol">
-                    <img src="{{ url_for('static', filename='img/humidity.png') }}"
-                         height="64" width="64">
-                    {{ current_weather.get('main').get('humidity')|round|int }} %
-                </td>
+{#                <td class="symbol">#}
+{#                    <img src="{{ url_for('static', filename='img/humidity.png') }}"#}
+{#                         height="64" width="64">#}
+{#                    {{ current_weather.get('main').get('humidity')|round|int }} %#}
+{#                </td>#}
             </tr>
         </table>
     </div>

@@ -6,8 +6,6 @@ from flask import g, session
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-import time
-import json
 
 
 @login_manager.user_loader
@@ -32,7 +30,7 @@ def water():
 def status() -> str:
     soil_is_wet = gardenbot_client.check()
     return soil_is_wet
-    # return render_template("status.html", soil_is_wet=soil_is_wet)
+    # return render_template("history.html", soil_is_wet=soil_is_wet)
 
 
 @app.route('/waterManually', methods=['POST'])
@@ -45,8 +43,6 @@ def water_manually():
         if r.status_code == 200:
             flash(r.text)
         return redirect(url_for('water'))
-    # else:
-    #     form = WaterForm()
     return render_template('water.html', form=form)
 
 
@@ -68,3 +64,43 @@ def logout():
     logout_user()
     flash('You were logged out')
     return redirect(request.args.get("next") or url_for("homepage"))
+
+
+@app.route("/get_history_data", methods=["GET"])
+def get_history_data():
+    json = gardenbot_client.get_history()
+    for item in json:
+        if str(item[1]).__contains__("INFO: Wet enough"):
+            item[1] = "0"
+        else:
+            item[1] = "60"
+    return jsonify(json)
+
+
+# @app.route("/history", methods=["GET"])
+# def show_history():
+#     # json = gardenbot_client.get_history()
+#     # for item in json:
+#     #     if str(item[1]).__contains__("INFO: Wet enough"):
+#     #         item[1] = "0"
+#     #     else:
+#     #         item[1] = "60"
+#     return render_template("history.html")
+
+
+@app.route("/history")
+def show_history(chartID='chart_ID', chart_type='line', chart_height=350):
+    json = gardenbot_client.get_history()
+    for item in json:
+        if str(item[1]).__contains__("INFO: Wet enough"):
+            item[1] = 0
+        else:
+            item[1] = 60
+    print([item[1] for item in json])
+    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
+    series = [{"data": json}]
+    title = {"text": 'My Title'}
+    xAxis = {"categories": ['xAxis Data1', 'xAxis Data2', 'xAxis Data3']}
+    yAxis = {"title": {"text": 'yAxis Label'}}
+    return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
+                           yAxis=yAxis)

@@ -16,6 +16,8 @@
     {#Scripts#}
     <script src="{{ url_for('static', filename='js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
 
@@ -32,6 +34,7 @@
         {% if current_user.is_authenticated %}
             <nav>
                 <a href="{{ url_for('logout') }}">Logout</a>
+                <a href="{{ url_for('show_history') }}">History</a>
             </nav>
         {% else %}
             <nav>

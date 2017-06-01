@@ -1,4 +1,4 @@
-from api.classes.garden import Gardenbot
+from garden import Gardenbot
 import time
 from flask import Response
 import authservice

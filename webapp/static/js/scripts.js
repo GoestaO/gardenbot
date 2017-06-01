@@ -65,3 +65,21 @@ function waterPlants() {
     });
 }
 
+function getHistory() {
+    // var documentURL = document.URL;
+    var target = "http://0.0.0.0:5000/get_history_data";
+    console.log(target);
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: target,
+        // beforeSend: function () {
+        //     $("#water_can").hide();
+        //     $("#loading_animation_water").show();
+        // },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}
+
