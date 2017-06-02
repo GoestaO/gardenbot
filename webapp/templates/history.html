@@ -27,35 +27,30 @@
     {#           height="64" width="64" onclick="getHistory();"/>#}
 
 
-    {#    <div id={{ chartID|safe }} class="chart" style="height: 100px; width: 500px"></div>#}
-    {#    <script>#}
-    {#        $(document).ready(function () {#}
-    {#            var chart_id =#}
-    {#            {{ chartID|safe }}#}
-    {#            var series =#}
-    {#            {{ series|safe }}#}
-    {#            var title =#}
-    {#            {{ title|safe }}#}
-    {#            var xAxis =#}
-    {#            {{ xAxis|safe }}#}
-    {#            var yAxis =#}
-    {#            {{ yAxis|safe }}#}
-    {#            var chart =#}
-    {#                {{ chart|safe }}#}
-    {#                $(chart_id).highcharts({#}
-    {#                    chart: chart,#}
-    {#                    title: title,#}
-    {#                    xAxis: xAxis,#}
-    {#                    yAxis: yAxis,#}
-    {#                    series: series#}
-    {#                });#}
-    {#        });#}
-    {##}
-    {#    </script>#}
+    <div id={{ chartID|safe }} class="chart" style="height: 500px; width: 500px"></div>
+    <script>
+        $(document).ready(function () {
+            var chart_id =
+            {{ chartID|safe }}
+            var series =
+            {{ series|safe }}
+            var title =
+            {{ title|safe }}
+            var xAxis =
+            {{ xAxis|safe }}
+            var yAxis =
+            {{ yAxis|safe }}
+            var chart =
+                {{ chart|safe }}
+                $(chart_id).highcharts({
+                    chart: chart,
+                    title: title,
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    series: series
+                });
+        });
 
-    <div id="my-chart"></div>
-    <script type="text/javascript">
-        new Highcharts.Chart({{chart|safe}});
     </script>
 
 {% endblock %}
