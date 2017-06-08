@@ -1,5 +1,5 @@
-{#{% extends "base.html" %}#}
-{#{% block content %}#}
+{% extends "base.html" %}
+{% block content %}
     {#    <div id="container" style="width:100%; height:400px;"></div>#}
     {#    <script>#}
     {#        $(document).ready(function () {#}
@@ -22,42 +22,43 @@
 {##}
     {#        });#}
     {#    </script>#}
-{##}
+as{##}
     {#    <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"#}
     {#           height="64" width="64" onclick="getHistory();"/>#}
 {##}
 {##}
-{#    <div id={{ chartID|safe }} class="chart" style="height: 500px; width: 500px"></div>#}
-{#    <script>#}
-{#        $(document).ready(function () {#}
-{#            var chart_id =#}
-{#            {{ chartID|safe }}#}
-{#            var series =#}
-{#            {{ series|safe }}#}
-{#            var title =#}
-{#            {{ title|safe }}#}
-{#            var xAxis =#}
-{#            {{ xAxis|safe }}#}
-{#            var yAxis =#}
-{#            {{ yAxis|safe }}#}
-{#            var tooltip = {{ tooltip|safe }}#}
-{#            var chart =#}
-{#                {{ chart|safe }}#}
-{#                $(chart_id).highcharts({#}
-{#                    chart: chart,#}
-{#                    title: title,#}
-{#                    xAxis: xAxis,#}
-{#                    yAxis: yAxis,#}
-{#                    series: series,#}
-{#                    tooltip: tooltip#}
-{#                });#}
-{#            console.log(chart);#}
-{#        });#}
-{##}
-{#    </script>#}
-{##}
-{#{% endblock %}#}
-{##}
-{#{% block aside %}#}
-{##}
-{#{% endblock %}#}
+    <div id={{ chartID|safe }} class="chart" style="height: 500px; width: 500px"></div>
+    <script>
+        $(document).ready(function () {
+            var chart_id =
+            {{ chartID|safe }}
+            var series =
+            {{ series|safe }}
+            var title =
+            {{ title|safe }}
+            var xAxis =
+            {{ xAxis|safe }}
+            var yAxis =
+            {{ yAxis|safe }}
+            var tooltip =
+            {{ tooltip|safe }}
+            var chart =
+                {{ chart|safe }}
+                $(chart_id).highcharts({
+                    chart: chart,
+                    title: title,
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    series: series,
+                    tooltip: tooltip
+                });
+            console.log(chart);
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}
