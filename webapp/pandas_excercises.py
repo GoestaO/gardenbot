@@ -2,6 +2,9 @@ from webservices import gardenbot_client
 import pandas as pd
 import datetime as dt
 import time
+from pprint import pprint
+import json
+
 
 def get_data():
     json = gardenbot_client.get_history()
@@ -11,6 +14,7 @@ def get_data():
         else:
             item[1] = 1
     return json
+
 
 def convert_dataframe(data):
     df = pd.DataFrame(data)
@@ -26,14 +30,17 @@ def date_to_millis(d):
     """Converts a datetime object to the number of milliseconds since the unix epoch."""
     return "{}".format(str(int(time.mktime(d.timetuple()))))
 
+
 def convert_to_int(input):
     return int(input)
 
+
 if __name__ == "__main__":
     data = get_data()
-    json = convert_dataframe(data=data)
-    plot_data = json.reset_index().values.tolist()
-    for i in plot_data:
-        i[0] = convert_to_int(i[0])
-
-    print(plot_data)
+    # pprint(data)
+    df = convert_dataframe(data=data)
+    plotdata = df.reset_index().to_json(orient='split')
+    #     i[0] = convert_to_int(i[0])
+    # pprint(jsondata)
+    # plot_data = json.load(jsondata)
+    pprint(plotdata[4])

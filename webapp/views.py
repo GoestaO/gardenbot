@@ -5,9 +5,8 @@ from app import login_manager
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-import pandas as pd
+# import pandas as pd
 import time
-from pandas_highcharts.core import serialize
 
 
 @login_manager.user_loader
@@ -78,45 +77,46 @@ def get_history_data():
             item[1] = "60"
     return jsonify(json)
 
-def convert_to_int(input):
-    return int(input)
 
-
-def convert_dataframe(data):
-    df = pd.DataFrame(data)
-    df.columns = ['Date', 'Watering']
-    df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
-    df['Date'] = df['Date'].dt.date
-    df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
-    df = df.groupby("Date").sum()
-    plot_data = df.reset_index().values.tolist()
-    return plot_data
-
-
-def date_to_millis(d):
-    """Converts a datetime object to the number of milliseconds since the unix epoch."""
-    return int(time.mktime(d.timetuple())*1000)
-
-
-@app.route("/history")
-def show_history():
-    json = gardenbot_client.get_history()
-    for item in json:
-        if str(item[1]).__contains__("INFO: Wet enough"):
-            item[1] = 0
-        else:
-            item[1] = 1
-
-    plot_data = convert_dataframe(json)
-    chartID = 'chart_ID'
-    chart_type = 'line'
-    chart_height = 350
-    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
-    series = [{"data": plot_data}]
-
-    title = {"text": 'Watering activities'}
-    xAxis = {"type": "datetime", "reversed": "true"}
-    yAxis = {"title": {"text": 'Watering count'}}
-
-    return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
-                           yAxis=yAxis)
+# def convert_to_int(input):
+#     return int(input)
+#
+#
+# def convert_dataframe(data):
+#     df = pd.DataFrame(data)
+#     df.columns = ['Date', 'Watering']
+#     df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
+#     df['Date'] = df['Date'].dt.date
+#     df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
+#     df = df.groupby("Date").sum()
+#     plot_data = df.reset_index().values.tolist()
+#     return plot_data
+#
+#
+# def date_to_millis(d):
+#     """Converts a datetime object to the number of milliseconds since the unix epoch."""
+#     return int(time.mktime(d.timetuple()) * 1000)
+#
+#
+# @app.route("/history")
+# def show_history():
+#     json = gardenbot_client.get_history()
+#     for item in json:
+#         if str(item[1]).__contains__("INFO: Wet enough"):
+#             item[1] = 0
+#         else:
+#             item[1] = 1
+#
+#     plot_data = convert_dataframe(json)
+#     chartID = 'chart_ID'
+#     chart_type = 'line'
+#     chart_height = 350
+#     chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
+#     series = [{"data": plot_data, "showInLegend": "false"}]
+#     tooltip = {"enabled": "false"}
+#     title = {"text": 'Watering activities'}
+#     xAxis = {"type": "datetime"}
+#     yAxis = {"title": {"text": 'Count'}}
+#
+#     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
+#                            yAxis=yAxis, tooltip=tooltip)

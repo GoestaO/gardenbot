@@ -29,7 +29,7 @@ def check():
 def get_history():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: application/json',
               'API-Key': '000b3d18-7f83-4515-ab66-99199cbbd074'}
-    url = "{}history".format(base_url_remote)
+    url = "{}history".format(base_url_local)
     r = requests.get(url=url, headers=header)
     return r.json()
 

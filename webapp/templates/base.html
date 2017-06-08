@@ -34,7 +34,7 @@
         {% if current_user.is_authenticated %}
             <nav>
                 <a href="{{ url_for('logout') }}">Logout</a>
-                <a href="{{ url_for('show_history') }}">History</a>
+{#                <a href="{{ url_for('show_history') }}">History</a>#}
             </nav>
         {% else %}
             <nav>
