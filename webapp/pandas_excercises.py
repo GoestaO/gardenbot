@@ -38,7 +38,7 @@ def get_logs():
 
 def date_to_millis(d):
     """Converts a datetime object to the number of milliseconds since the unix epoch."""
-    return int(time.mktime(d.timetuple()))
+    return int(time.mktime(d.timetuple()) * 1000)
 
 
 if __name__ == "__main__":

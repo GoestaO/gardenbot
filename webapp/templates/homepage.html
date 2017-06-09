@@ -64,9 +64,10 @@
                     {{ current_weather.get('main').get('temp')|round|int }} °C
                 </td>
                 <td class="symbol">
-                    <img src="{{ url_for('static', filename='img/history.png') }}"
-                         height="64" width="64">
-                    {{ current_weather.get('main').get('humidity')|round|int }} %
+                    <a href="{{ url_for('show_history') }}">
+                        <img src="{{ url_for('static', filename='img/history.png') }}"
+                             height="64" width="64">
+                    </a>
                 </td>
             </tr>
         </table>

@@ -105,12 +105,15 @@ def show_history():
     chartID = 'chart_ID'
     chart_type = 'line'
     chart_height = 350
+    showInLegend = "false"
+    seriesName = "# waterings"
+    tooltip_enabled = "false"
     chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
-    series = [{"data": plot_data, "showInLegend": "false"}]
-    tooltip = {"enabled": "false"}
+    series = [{"data": plot_data, "showInLegend": showInLegend, "name": seriesName}]
+    tooltip = {"enabled": tooltip_enabled}
     title = {"text": 'Watering activities'}
-    xAxis = {"type": "datetime"}
-    yAxis = {"title": {"text": 'Count'}}
+    xAxis = {"type": "datetime", "tickInterval": "86400000"}
+    yAxis = {"title": {"text": 'Count'},  "tickInterval": "1"}
 
     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
                            yAxis=yAxis, tooltip=tooltip)

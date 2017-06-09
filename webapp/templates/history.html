@@ -3,7 +3,7 @@
     {#    <div id="container" style="width:100%; height:400px;"></div>#}
     {#    <script>#}
     {#        $(document).ready(function () {#}
-{##}
+    {##}
     {#            var options = {#}
     {#                chart: {#}
     {#                    renderTo: 'container',#}
@@ -17,17 +17,17 @@
     {#                console.log(data);#}
     {#                var chart = new Highcharts.Chart(options);#}
     {#            });#}
-{##}
+    {##}
     {#    $.get('http://localhost:5000/data.csv',function(csv){#}
-{##}
+    {##}
     {#        });#}
     {#    </script>#}
-as{##}
+    {##}
     {#    <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"#}
     {#           height="64" width="64" onclick="getHistory();"/>#}
-{##}
-{##}
-    <div id={{ chartID|safe }} class="chart" style="height: 500px; width: 500px"></div>
+    {##}
+    {##}
+    <div id={{ chartID|safe }} class="chart" style="height: 300px; 	width: 310px"></div>
     <script>
         $(document).ready(function () {
             var chart_id =
@@ -40,8 +40,7 @@ as{##}
             {{ xAxis|safe }}
             var yAxis =
             {{ yAxis|safe }}
-            var tooltip =
-            {{ tooltip|safe }}
+            var tooltip = "{ enabled: false }"
             var chart =
                 {{ chart|safe }}
                 $(chart_id).highcharts({
@@ -52,7 +51,6 @@ as{##}
                     series: series,
                     tooltip: tooltip
                 });
-            console.log(chart);
         });
 
     </script>
