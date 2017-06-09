@@ -10,10 +10,10 @@ def convert_dataframe(data):
     df = pd.DataFrame(data)
     df.columns = ['Date', 'Watering']
     df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
-    df['Date'] = df['Date'].dt.date
+    # df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
+    df['Date'] = df['Date'].apply(lambda x: x.date())
     df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
     df = df.groupby("Date").sum()
-    df = df.reset_index().values.tolist()
     return df
 
 
@@ -27,11 +27,13 @@ def sanitize_logs(json_object):
 
 
 """Returns the log entries of the past 5 days as json object"""
+
+
 def get_logs():
-    with open("/home/pi/gardenbot/gardenbot.log") as f:
+    with open("gardenbot.log") as f:
         lines = f.readlines()[-60:]
         lines = reversed(lines)
-        return json.dumps(list((line.split(";") for line in lines)))
+        return list((line.split(";") for line in lines))
 
 
 def date_to_millis(d):
@@ -40,5 +42,7 @@ def date_to_millis(d):
 
 
 if __name__ == "__main__":
-    data = gardenbot_client.get_history()
-    print(data)
+    logs = get_logs()
+    logs = sanitize_logs(logs)
+    df = convert_dataframe(logs)
+    print(df)

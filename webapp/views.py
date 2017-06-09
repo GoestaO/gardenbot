@@ -101,14 +101,7 @@ def date_to_millis(d):
 
 @app.route("/history")
 def show_history():
-    json = gardenbot_client.get_history()
-    for item in json:
-        if str(item[1]).__contains__("INFO: Wet enough"):
-            item[1] = 0
-        else:
-            item[1] = 1
-    plot_data = convert_dataframe(json)
-    pprint(plot_data)
+    plot_data = gardenbot_client.get_history()
     chartID = 'chart_ID'
     chart_type = 'line'
     chart_height = 350
