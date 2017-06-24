@@ -46,7 +46,7 @@ def convert_dataframe(data):
     df.columns = ['Date', 'Watering']
     df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
     df['Date'] = df['Date'].dt.date
-    df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
+    df['Date'] = df['Date'].apply(lambda x: date_to_seconds(x))
     df = df.groupby("Date").sum()
     return df
 
@@ -68,6 +68,6 @@ def get_logs():
         return list((line.split(";") for line in lines))
 
 
-def date_to_millis(d):
-    """Converts a datetime object to the number of milliseconds since the unix epoch."""
+"""Converts a datetime object to the number of seconds since the unix epoch."""
+def date_to_seconds(d):
     return int(time.mktime(d.timetuple()))

@@ -3,13 +3,18 @@
     <div id={{ chartID|safe }} class="chart" style="height: 450px; width: 300px"></div>
     <script>
         $(document).ready(function () {
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
             var chart_id =
             {{ chartID|safe }}
             var plot_data =
             {{ plot_data|safe }}
             var plot_data_length = plot_data.length;
             for (var i = 0; i < plot_data_length; i++) {
-                plot_data[i][0] = plot_data[i][0]*1000;
+                plot_data[i][0] = plot_data[i][0] * 1000;
             }
             var series = [{"data": plot_data, "showInLegend": "false"}]
             var title =
@@ -18,8 +23,8 @@
             {{ xAxis|safe }}
             var yAxis =
             {{ yAxis|safe }}
-            var tooltip =
-            {{ tooltip|safe }}
+            {#            var tooltip =#}
+            {#            {{ tooltip|safe }}#}
             var chart =
                 {{ chart|safe }}
                 $(chart_id).highcharts({
@@ -28,7 +33,13 @@
                     xAxis: xAxis,
                     yAxis: yAxis,
                     series: series,
-                    tooltip: tooltip
+                    {#                    tooltip: tooltip#}
+                    tooltip: {
+                        formatter: function () {
+                            return Highcharts.dateFormat('%d.%m.%Y',
+                                    new Date(this.x)) + ': ' + this.y;
+                        }
+                    }
                 });
         });
 
