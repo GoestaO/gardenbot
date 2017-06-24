@@ -36,4 +36,4 @@ def get_history():
 if __name__ == "__main__":
     json = get_history()
     for entry in json:
-        print("{}: {}".format(entry[0], entry[1].rstrip()))
+        print(entry)

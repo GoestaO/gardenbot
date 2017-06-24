@@ -5,7 +5,6 @@ from app import login_manager
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-import pandas as pd
 import time
 from pprint import pprint
 
@@ -28,7 +27,7 @@ def water():
 
 
 @app.route("/status", methods=['GET'])
-def status() -> str:
+def status():
     soil_is_wet = gardenbot_client.check()
     return soil_is_wet
     # return render_template("history.html", soil_is_wet=soil_is_wet)
@@ -90,7 +89,6 @@ def convert_dataframe(data):
     df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
     df = df.groupby("Date").sum()
     plot_data = df.reset_index().values.tolist()
-    pprint(plot_data)
     return plot_data
 
 
@@ -105,12 +103,11 @@ def show_history():
     chartID = 'chart_ID'
     chart_type = 'line'
     chart_height = 350
-    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height, }
+    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
     series = [{"data": plot_data, "showInLegend": "false"}]
     tooltip = {"enabled": "false"}
     title = {"text": 'Watering activities'}
     xAxis = {"type": "datetime"}
     yAxis = {"title": {"text": 'Count'}}
-
     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
-                           yAxis=yAxis, tooltip=tooltip)
+                           yAxis=yAxis, tooltip=tooltip, plot_data=plot_data)

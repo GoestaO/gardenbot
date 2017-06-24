@@ -16,11 +16,11 @@ def get_current_weather():
     return json
 
 
-def get_weather_icon(weather: dict):
+def get_weather_icon(weather):
     return weather.get("weather").pop().get("icon")
 
 
-def get_weather_icon_url(icon_id: str):
+def get_weather_icon_url(icon_id):
     base_url = "http://openweathermap.org/img/w/{}.png"
     return base_url.format(icon_id)
 

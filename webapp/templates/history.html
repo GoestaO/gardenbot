@@ -1,39 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    {#    <div id="container" style="width:100%; height:400px;"></div>#}
-    {#    <script>#}
-    {#        $(document).ready(function () {#}
-{##}
-    {#            var options = {#}
-    {#                chart: {#}
-    {#                    renderTo: 'container',#}
-    {#                    type: 'spline'#}
-    {#                },#}
-    {#                series: [{}]#}
-    {#            };#}
-    {##}
-    {#            $.getJSON('/history', function (data) {#}
-    {#                options.series[0].data = data;#}
-    {#                console.log(data);#}
-    {#                var chart = new Highcharts.Chart(options);#}
-    {#            });#}
-{##}
-    {#    $.get('http://localhost:5000/data.csv',function(csv){#}
-{##}
-    {#        });#}
-    {#    </script>#}
-as{##}
-    {#    <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"#}
-    {#           height="64" width="64" onclick="getHistory();"/>#}
-{##}
-{##}
-    <div id={{ chartID|safe }} class="chart" style="height: 500px; width: 500px"></div>
+    <div id={{ chartID|safe }} class="chart" style="height: 450px; width: 300px"></div>
     <script>
         $(document).ready(function () {
             var chart_id =
             {{ chartID|safe }}
-            var series =
-            {{ series|safe }}
+            var plot_data =
+            {{ plot_data|safe }}
+            var plot_data_length = plot_data.length;
+            for (var i = 0; i < plot_data_length; i++) {
+                plot_data[i][0] = plot_data[i][0]*1000;
+            }
+            var series = [{"data": plot_data, "showInLegend": "false"}]
             var title =
             {{ title|safe }}
             var xAxis =
@@ -52,7 +30,6 @@ as{##}
                     series: series,
                     tooltip: tooltip
                 });
-            console.log(chart);
         });
 
     </script>
