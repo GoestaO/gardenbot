@@ -5,6 +5,7 @@ from datetime import datetime
 #from models import User, Protocol
 #from app import db
 from gardenlogger import Gardenlogger
+from weather_clie
 
 
 class Gardenbot:
@@ -15,9 +16,6 @@ class Gardenbot:
         self.relay_channel_sensor = relay_channel_sensor
         self.watering_time = watering_time
 	    self.gl = Gardenlogger("/home/pi/gardenbot/gardenbot.log")
-        #self.logger = logging.getLogger('Gardenbot')
-        #hdlr = logging.FileHandler('/home/pi/gardenbot.log')
-        #self.logger.addHandler(hdlr)
 
     def setup_pins(self):
         GPIO.setup(self.moisture_sensor_channel, GPIO.IN)

@@ -108,6 +108,6 @@ def show_history():
 
     title = {"text": 'Watering activities'}
     xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
-    yAxis = {"title": {"text": 'Count'}}
+    yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
                            yAxis=yAxis, plot_data=plot_data)

@@ -27,7 +27,7 @@ def get_weather_icon_url(icon_id):
 
 if __name__ == '__main__':
     current_weather = get_current_weather()
-    pprint(current_weather.get("main")['temp'])
+    pprint(current_weather)
     # weather_icon = current_weather.get("weather").pop().get("icon")
     # pprint(weather_icon.pop().get("icon"))
     # image_url = get_weather_icon(weather_icon)

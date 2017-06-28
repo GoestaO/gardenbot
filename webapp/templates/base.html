@@ -29,12 +29,12 @@
 
 <div class="header-container">
     <header class="wrapper clearfix">
-        <h1 class="title"><a href="{{ url_for('homepage') }}" style="text-decoration: none; color: white"> |
-            Gardenbot</a></h1>
+        <h2 class="title"><a href="{{ url_for('homepage') }}" style="text-decoration: none; color: white"> |
+            Gardenbot</a></h2>
         {% if current_user.is_authenticated %}
             <nav>
-                <a href="{{ url_for('logout') }}">Logout</a>
-{#                <a href="{{ url_for('show_history') }}">History</a>#}
+                <a href="{{ url_for('logout') }}" style="text-decoration: none; color: white">Logout</a>
+                {#                <a href="{{ url_for('show_history') }}">History</a>#}
             </nav>
         {% else %}
             <nav>
