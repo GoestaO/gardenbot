@@ -38,14 +38,21 @@ def get_data():
     logs = sanitize_logs(logs)
     df = convert_dataframe(logs)
     df = df.reset_index().values.tolist()
-    return df
+    return json.dumps(df)
+
+
+@authservice.requires_token
+def get_water_status():
+    gb = Gardenbot()
+    gb.setup_pins()
+    return str(gb.enough_water())
 
 
 def convert_dataframe(data):
     df = pd.DataFrame(data)
     df.columns = ['Date', 'Watering']
     df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
-    df['Date'] = df['Date'].dt.date
+    df['Date'] = df['Date'].apply(lambda x: x.date())
     df['Date'] = df['Date'].apply(lambda x: date_to_seconds(x))
     df = df.groupby("Date").sum()
     return df
@@ -57,7 +64,7 @@ def sanitize_logs(json_object):
             item[1] = 0
         else:
             item[1] = 1
-    return json.dumps(json_object)
+    return json_object
 
 
 """Returns the log entries of the past 5 days as json object"""
