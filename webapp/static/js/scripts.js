@@ -16,10 +16,14 @@ function enableInput() {
 function resetPage() {
     $("#loading_animation_sensor").hide();
     $("#loading_animation_water").hide();
+    $("#loading_animation_water_level").hide();
     $("#ok_sensor").hide();
     $("#not_ok_sensor").hide();
     $("#ok_water").hide();
     $("#not_ok_water").hide();
+    $("#positive").hide();
+    $("#negative").hide();
+
 }
 
 function getSoilStatus() {
@@ -65,20 +69,26 @@ function waterPlants() {
     });
 }
 
-function getHistory() {
-    // var documentURL = document.URL;
-    var target = "http://0.0.0.0:5000/get_history_data";
-    console.log(target);
+function enoughWater() {
+    var documentURL = document.URL;
+    var target = documentURL.concat("waterstatus");
     $.ajax({
         type: "GET",
-        dataType: "json",
         url: target,
-        // beforeSend: function () {
-        //     $("#water_can").hide();
-        //     $("#loading_animation_water").show();
-        // },
+        beforeSend: function () {
+            $("#water_level").hide();
+            $("#loading_animation_water_level").show();
+        },
         success: function (data) {
-            console.log(data);
+            $("#loading_animation_water_level").hide();
+            if (data == 'True') {
+                $("#positive").show();
+            } else if (data == 'False') {
+                $("#negative").show();
+            }
+            $("#positive").delay(5000).hide('fast');
+            $("#negative").delay(5000).hide('fast');
+            $("#water_level").delay(5100).show('fast');
         }
     });
 }

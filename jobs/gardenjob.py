@@ -2,25 +2,29 @@ import RPi.GPIO as GPIO
 import time
 import sys
 from datetime import datetime
-#from models import User, Protocol
-#from app import db
+# from models import User, Protocol
+# from app import db
 from gardenlogger import Gardenlogger
-from weather_clie
 
 
 class Gardenbot:
-    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18, watering_time=90):
+    def __init__(self, moisture_sensor_channel=14, relay_channel_ventile=17, relay_channel_sensor=18,
+                 float_switch_in=25, float_switch_out=4, watering_time=90):
         GPIO.setmode(GPIO.BCM)
         self.moisture_sensor_channel = moisture_sensor_channel
         self.relay_channel_ventile = relay_channel_ventile
         self.relay_channel_sensor = relay_channel_sensor
+        self.float_switch_in = float_switch_in
+        self.float_switch_out = float_switch_out
         self.watering_time = watering_time
-	    self.gl = Gardenlogger("/home/pi/gardenbot/gardenbot.log")
+        self.gl = Gardenlogger("/home/pi/gardenbot/gardenbot.log")
 
     def setup_pins(self):
         GPIO.setup(self.moisture_sensor_channel, GPIO.IN)
         GPIO.setup(self.relay_channel_ventile, GPIO.OUT, initial=GPIO.HIGH)
         GPIO.setup(self.relay_channel_sensor, GPIO.OUT, initial=GPIO.HIGH)
+        GPIO.setup(self.float_switch_in, GPIO.IN)
+        GPIO.setup(self.float_switch_out, GPIO.OUT, initial=GPIO.LOW)
 
     '''
     This function measures the moisture of the soil. If it is too dry, the ventile will be opened, otherwise nothing will happen
@@ -45,6 +49,16 @@ class Gardenbot:
 
     def stop_sensor(self):
         Gardenbot.relay_open_circuit(self.relay_channel_sensor)
+
+    def enough_water(self):
+        """Checks, if there's enough water in the tank"""
+        GPIO.output(self.float_switch_out, True)
+        time.sleep(1)
+        signal = GPIO.input(self.float_switch_in)
+        GPIO.output(self.float_switch_out, False)
+        if signal == 0:
+            return True
+        return False
 
     @staticmethod
     def relay_close_circuit(channel):
@@ -93,7 +107,9 @@ class Gardenbot:
 if __name__ == '__main__':
     gb = Gardenbot()
     gb.setup_pins()
-    gb.close_water()
-    gb.measure_moisture(channel=gb.moisture_sensor_channel)
-    gb.close()
+    # gb.close_water()
+    # gb.measure_moisture(channel=gb.moisture_sensor_channel)
+    # gb.close()
+    enough_water = gb.enough_water();
+    print(enough_water)
     gb.exit()

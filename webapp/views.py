@@ -33,6 +33,12 @@ def status():
     # return render_template("history.html", soil_is_wet=soil_is_wet)
 
 
+@app.route("/waterstatus", methods=['GET'])
+def water_status():
+    water_level = gardenbot_client.get_water_status()
+    return str(water_level)
+
+
 @app.route('/waterManually', methods=['POST'])
 @login_required
 def water_manually():

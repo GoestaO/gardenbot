@@ -78,3 +78,9 @@ def get_logs():
 """Converts a datetime object to the number of seconds since the unix epoch."""
 def date_to_seconds(d):
     return int(time.mktime(d.timetuple()))
+
+@authservice.requires_token
+def get_water_status():
+    gb = Gardenbot()
+    gb.setup_pins()
+    return json.dumps(gb.enough_water())
