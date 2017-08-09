@@ -68,5 +68,10 @@ class TestCase(unittest.TestCase):
         return self.app.get('/logout', follow_redirects=True)
 
 
+    def test_water_needs_login(self):
+        response = self.app.get('/water')
+        print(response)
+
+
 if __name__ == '__main__':
     unittest.main()

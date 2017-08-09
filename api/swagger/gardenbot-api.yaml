@@ -78,7 +78,7 @@ paths:
       - application/json;
       responses:
         200:
-          description: history response
+          description: water status response
           schema:
             type: string
           examples:

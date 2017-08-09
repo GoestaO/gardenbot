@@ -9,7 +9,7 @@ base_url_remote = "https://797e6e7778.dataplicity.io/v1.0/"
 
 
 def water_plants(seconds):
-    url = "{}/watering/{}".format(base_url_local, str(seconds))
+    url = "{}/watering/{}".format(base_url_remote, str(seconds))
     r = requests.post(url=url, headers=headers)
     return r
 
@@ -20,7 +20,7 @@ def water_plants(seconds):
 def check():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: text/html',
               'API-Key': 'a1c86893-841e-45c6-9f1f-f8a31a58d601'}
-    url = "{}check".format(base_url_local)
+    url = "{}check".format(base_url_remote)
     r = requests.post(url=url, headers=header)
     # text = check()
     # print(text)
@@ -32,7 +32,7 @@ def check():
 def get_history():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: application/json',
               'API-Key': 'a1c86893-841e-45c6-9f1f-f8a31a58d601'}
-    url = "{}history".format(base_url_local)
+    url = "{}history".format(base_url_remote)
     r = requests.get(url=url, headers=header)
     return r.json()
 
@@ -40,7 +40,7 @@ def get_history():
 def get_water_status():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: application/json',
               'API-Key': 'a1c86893-841e-45c6-9f1f-f8a31a58d601'}
-    url = "{}waterstatus".format(base_url_local)
+    url = "{}waterstatus".format(base_url_remote)
     r = requests.get(url=url, headers=header)
     return r.json()
 

@@ -1,12 +1,11 @@
 from app import app
-from flask import render_template, request, redirect, url_for, flash, jsonify, Response
+from flask import render_template, request, redirect, url_for, flash, jsonify, Response, session
 from forms import WaterForm, LoginForm
 from app import login_manager
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 import time
-from pprint import pprint
 
 @login_manager.user_loader
 def load_user(id):
@@ -21,12 +20,14 @@ def homepage():
 
 
 @app.route('/water', methods=['GET'])
+@login_required
 def water():
     response = gardenbot_client.water_plants(30)
     return jsonify(response.text, response.status_code)
 
 
 @app.route("/status", methods=['GET'])
+@login_required
 def status():
     soil_is_wet = gardenbot_client.check()
     return soil_is_wet
@@ -34,6 +35,7 @@ def status():
 
 
 @app.route("/waterstatus", methods=['GET'])
+@login_required
 def water_status():
     water_level = gardenbot_client.get_water_status()
     return str(water_level)
@@ -117,3 +119,5 @@ def show_history():
     yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
     return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
                            yAxis=yAxis, plot_data=plot_data)
+
+

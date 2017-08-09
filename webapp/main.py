@@ -1,5 +1,5 @@
 from views import *
-from app import app, db
+from app import app as application, db
 import models
 import os
 import sys
@@ -14,5 +14,6 @@ sys.path.extend(dir_path)
 # app.run(debug=True, host='0.0.0.0', port=8080)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    application.run(host='0.0.0.0')
+
     # app.run()
