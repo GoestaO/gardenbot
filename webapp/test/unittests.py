@@ -70,7 +70,6 @@ class TestCase(unittest.TestCase):
 
     def test_water_needs_login(self):
         response = self.app.get('/water')
-        print(response)
 
 
 if __name__ == '__main__':
