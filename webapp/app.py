@@ -7,20 +7,21 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_bcrypt import Bcrypt
 
-app = Flask(__name__)
-app.config.from_object(Configuration)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-manager = Manager(app)
+application = Flask(__name__)
+app = application
+application.config.from_object(Configuration)
+db = SQLAlchemy(application)
+migrate = Migrate(application, db)
+manager = Manager(application)
 manager.add_command('db', MigrateCommand)
 
-login_manager = LoginManager(app)
+login_manager = LoginManager(application)
 login_manager.login_view = "login"
 
-bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(application)
 
 
-@app.before_request
+@application.before_request
 def _before_request():
     g.user = current_user
 
