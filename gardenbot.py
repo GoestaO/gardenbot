@@ -5,6 +5,7 @@ import yaml
 from gardenlogger import Gardenlogger
 from sensor import MiFloraSensor
 dirname = os.path.dirname(__file__)
+import json
 
 class Gardenbot:
     def __init__(self, relay_channel_ventile=17, float_switch_in=25, float_switch_out=4, watering_time=90):
@@ -59,13 +60,15 @@ class Gardenbot:
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
     def soil_is_wet(self):
-        moisture = self.sensor.get_miflora_data()['moisture']
+        sensor_data = json.loads(self.sensor.get_miflora_data())
+        moisture = sensor_data['moisture']
         moisture_threshold = self.thresholds.get('moisture')
         return moisture > moisture_threshold
 
     '''Returns a boolean if the soil is fertile or not'''
     def soil_is_fertile(self):
-        fertility = self.sensor.get_miflora_data()['conductivity']
+        sensor_data = json.loads(self.sensor.get_miflora_data())
+        fertility = sensor_data['conductivity']
         fertility_threshold = self.thresholds.get('conductivity')
         return fertility > fertility_threshold
 

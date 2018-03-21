@@ -20,4 +20,4 @@ class MiFloraSensor:
 
 if __name__ == '__main__':
     sensor = MiFloraSensor()
-    print(sensor.get_miflora_data())
+    print(sensor.get_miflora_data()['conductivity'])
