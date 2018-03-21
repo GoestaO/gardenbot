@@ -1,10 +1,13 @@
-from garden import Gardenbot
+import os, sys
+dirname = os.path.dirname(__file__)
+gardenbot_file = os.path.join(dirname, '..', '..', 'gardenbot.py')
+sys.path.append(gardenbot_file)
+from gardenbot import Gardenbot
 import time
 from flask import Response
 import authservice
 import json
 import pandas as pd
-
 
 @authservice.requires_token
 def water_plants(seconds):
@@ -21,11 +24,7 @@ def water_plants(seconds):
 @authservice.requires_token
 def check_moisture():
     gb = Gardenbot()
-    gb.setup_pins()
-    gb.start_sensor()
-    time.sleep(1)
-    soil_is_wet = Gardenbot.soil_is_wet(14)
-    gb.stop_sensor()
+    soil_is_wet = Gardenbot.soil_is_wet()
     gb.close()
     msg = "{}".format(soil_is_wet)
     return Response(msg)
@@ -68,6 +67,8 @@ def sanitize_logs(json_object):
 
 
 """Returns the log entries of the past 5 days as json object"""
+
+
 def get_logs():
     with open("/home/pi/gardenbot/gardenbot.log") as f:
         lines = f.readlines()[-60:]
@@ -76,11 +77,15 @@ def get_logs():
 
 
 """Converts a datetime object to the number of seconds since the unix epoch."""
+
+
 def date_to_seconds(d):
     return int(time.mktime(d.timetuple()))
+
 
 @authservice.requires_token
 def get_water_status():
     gb = Gardenbot()
     gb.setup_pins()
     return json.dumps(gb.enough_water())
+
