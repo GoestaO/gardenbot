@@ -13,6 +13,8 @@ import unittest
 class GardenbotTest(unittest.TestCase):
     def setUp(self):
         self.gardenbot_test_object = Gardenbot(watering_time=5)
+
+        '''Mock the hardware methods in order to prevent pumping and watering...'''
         self.gardenbot_test_object.close_water = MagicMock()
         self.gardenbot_test_object.water_plants = MagicMock()
         self.gardenbot_test_object.start_sensor = MagicMock()
