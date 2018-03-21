@@ -10,7 +10,7 @@ paths:
   /watering/{seconds}:
     post:
       summary: Waters the plants
-      description: Opens the ventile for the specified time (in seconds)
+      description: Opens the valve for the specified time (in seconds)
       operationId: classes.gardenbot-api.water_plants
       produces:
         - text/plain;
@@ -33,7 +33,7 @@ paths:
           required: true
   /check:
     post:
-      summary: Checks whether the soil is wet or not
+      summary: Checks if soil is wet enough or not
       description: Checks wether the soil is wet or not
       operationId: classes.gardenbot-api.check_moisture
       produces:

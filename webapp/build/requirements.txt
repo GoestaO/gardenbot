@@ -9,4 +9,3 @@ Jinja2
 Werkzeug
 requests
 PyMySQL
-pandas

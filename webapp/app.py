@@ -6,9 +6,11 @@ from flask_login import LoginManager, current_user
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_bcrypt import Bcrypt
+from flask import Blueprint
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
