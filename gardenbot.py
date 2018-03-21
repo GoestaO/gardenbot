@@ -14,7 +14,7 @@ class Gardenbot:
         self.float_switch_out = float_switch_out
         self.watering_time = watering_time
         self.gl = Gardenlogger("/var/log/gardenbot.log")
-        self.thresholds = Gardenbot.load_yaml(os.path.join("thresholds.yaml")
+        self.thresholds = Gardenbot.load_yaml("thresholds.yaml")
         self.sensor = MiFloraSensor()
 
     def setup_pins(self):
