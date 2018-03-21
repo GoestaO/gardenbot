@@ -1,0 +1,3 @@
+sudo apt-get install libglib2.0-dev
+pip3 install bluepy
+pip3 install miflora
