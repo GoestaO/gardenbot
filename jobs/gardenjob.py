@@ -14,7 +14,7 @@ class Gardenjob(Gardenbot):
     This function measures the moisture of the soil. If it is too dry, the ventile will be opened, otherwise nothing will happen
     '''
 
-    def measure_moisture(self, channel):
+    def measure_moisture(self):
         self.start_sensor()
 
         # wait a bit
