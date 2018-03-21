@@ -1,10 +1,10 @@
 import RPi.GPIO as GPIO
 import time
-import sys
+import os
 import yaml
 from gardenlogger import Gardenlogger
 from sensor import MiFloraSensor
-
+dirname = os.path.dirname(__file__)
 
 class Gardenbot:
     def __init__(self, relay_channel_ventile=17, float_switch_in=25, float_switch_out=4, watering_time=90):
@@ -14,7 +14,7 @@ class Gardenbot:
         self.float_switch_out = float_switch_out
         self.watering_time = watering_time
         self.gl = Gardenlogger("/var/log/gardenbot.log")
-        self.thresholds = Gardenbot.load_yaml("thresholds.yaml")
+        self.thresholds = Gardenbot.load_yaml(os.path.join("thresholds.yaml")
         self.sensor = MiFloraSensor()
 
     def setup_pins(self):
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     gb = Gardenbot()
     gb.setup_pins()
     gb.close_water()
-    gb.measure_moisture(channel=gb.moisture_sensor_channel)
+    gb.measure_moisture()
     gb.close()
     gb.exit()

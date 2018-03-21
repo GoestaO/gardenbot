@@ -1,8 +1,10 @@
 import time, sys, os
+
 dirname = os.path.dirname(__file__)
-gardenbot_file = os.path.join(dirname, '..', 'gardenbot.py')
-sys.path.insert(1, gardenbot_file)
+parent_dir = os.path.join(dirname, '..')
+sys.path.insert(1, parent_dir)
 from gardenbot import Gardenbot
+
 
 class Gardenjob(Gardenbot):
     def __init__(self):
@@ -28,10 +30,11 @@ class Gardenjob(Gardenbot):
     def exit(self):
         sys.exit()
 
+
 if __name__ == '__main__':
     gj = Gardenjob()
     gj.setup_pins()
     gj.close_water()
-    gj.measure_moisture(channel=gj.moisture_sensor_channel)
+    gj.measure_moisture()
     gj.close()
     gj.exit()
