@@ -15,8 +15,6 @@ class Gardenjob(Gardenbot):
     '''
 
     def measure_moisture(self):
-        self.start_sensor()
-
         # wait a bit
         time.sleep(1)
         if not Gardenbot.soil_is_wet():
@@ -24,10 +22,9 @@ class Gardenjob(Gardenbot):
         else:
             self.close_water()
             self.gl.logger.info("Wet enough".format())
-            self.stop_sensor()
             self.close()
-
-    def exit(self):
+    @staticmethod
+    def exit():
         sys.exit()
 
 
@@ -37,4 +34,4 @@ if __name__ == '__main__':
     gj.close_water()
     gj.measure_moisture()
     gj.close()
-    gj.exit()
+    Gardenjob.exit()
