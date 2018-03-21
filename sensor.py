@@ -17,3 +17,7 @@ class MiFloraSensor:
         d['conductivity'] = self.poller.parameter_value(MI_CONDUCTIVITY)
         d['battery'] = self.poller.parameter_value(MI_BATTERY)
         return json.dumps(d)
+
+if __name__ == '__main__':
+    sensor = MiFloraSensor()
+    print(sensor.get_miflora_data())
