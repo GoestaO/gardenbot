@@ -142,7 +142,7 @@
         <entry file="file://$PROJECT_DIR$/gardenbot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="16" column="46" lean-forward="false" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+              <caret line="16" column="87" lean-forward="false" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -1478,7 +1478,7 @@
     <entry file="file://$PROJECT_DIR$/gardenbot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="16" column="46" lean-forward="false" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+          <caret line="16" column="87" lean-forward="false" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
