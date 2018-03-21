@@ -17,7 +17,7 @@ class Gardenjob(Gardenbot):
     def measure_moisture(self):
         # wait a bit
         time.sleep(1)
-        if not Gardenbot.soil_is_wet():
+        if not super().soil_is_wet():
             self.water_plants()
         else:
             self.close_water()
