@@ -1,6 +1,11 @@
 from miflora.backends.gatttool import GatttoolBackend
 from miflora.miflora_poller import MiFloraPoller, MI_CONDUCTIVITY, MI_MOISTURE, MI_LIGHT, MI_TEMPERATURE, MI_BATTERY
 import json
+from database.models import SensorData, Protocol
+from database.db import persist
+
+test_data = {'battery': 99, 'firmware': '3.1.8', 'name': 'Flower care', 'conductivity': 476, 'temperature': 5.6,
+             'moisture': 12, 'light': 0}
 
 
 class MiFloraSensor:
@@ -18,6 +23,25 @@ class MiFloraSensor:
         d['battery'] = self.poller.parameter_value(MI_BATTERY)
         return json.dumps(d)
 
+    @staticmethod
+    def get_sensor_data(sensor_data):
+        p = SensorData(temperature=sensor_data['temperature'], moisture=sensor_data['moisture'],
+                       fertility=sensor_data['conductivity'])
+        return p
+
+    @staticmethod
+    def persist(entity):
+        persist(entity)
+
+
 if __name__ == '__main__':
-    sensor = MiFloraSensor()
-    print(sensor.get_miflora_data()['conductivity'])
+    # sensor = MiFloraSensor()
+    # sensor_data = json.loads(sensor.get_miflora_data())
+    print(test_data)
+    data = MiFloraSensor.get_sensor_data(test_data)
+    print(data)
+    MiFloraSensor.persist(data)
+
+    p = Protocol()
+    p.water = 1
+    MiFloraSensor.persist(p)
