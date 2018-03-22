@@ -1,3 +1,4 @@
 api.conf
 .idea/workspace.xml
-
+.idea/
+*.pyc
