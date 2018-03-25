@@ -4,9 +4,9 @@ dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
 from gardenbot import Gardenbot
+from database.models import Protocol, SensorData
 
-
-class Gardenjob(Gardenbot):
+class Waterjob(Gardenbot):
     def __init__(self):
         super().__init__()
 
@@ -15,23 +15,36 @@ class Gardenjob(Gardenbot):
     '''
 
     def measure_moisture(self):
+        # Call sensor
+        sensor_data = self.sensor.get_miflora_data()
+
+        # Create protocol based on sensor data
+        p = Protocol()
+
         # wait a bit
         time.sleep(1)
-        if not super().soil_is_wet():
+        if not super().soil_is_wet(sensor_data):
+            p.water = 1
             self.water_plants()
         else:
             self.close_water()
-            self.gl.logger.info("Wet enough".format())
+            p.water = 0
             self.close()
+
+        # Persist protocol
+        Gardenbot.persist(p)
+
     @staticmethod
     def exit():
         sys.exit()
 
 
+
+
 if __name__ == '__main__':
-    gj = Gardenjob()
+    gj = Waterjob()
     gj.setup_pins()
     gj.close_water()
     gj.measure_moisture()
     gj.close()
-    Gardenjob.exit()
+    Waterjob.exit()

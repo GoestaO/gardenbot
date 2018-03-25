@@ -4,8 +4,12 @@ import os
 import yaml
 from gardenlogger import Gardenlogger
 from sensor import MiFloraSensor
+
 dirname = os.path.dirname(__file__)
 import json
+from database.models import Protocol
+from database.db import persist
+
 
 class Gardenbot:
     def __init__(self, relay_channel_ventile=17, float_switch_in=25, float_switch_out=4, watering_time=90):
@@ -15,8 +19,8 @@ class Gardenbot:
         self.float_switch_out = float_switch_out
         self.watering_time = watering_time
         self.gl = Gardenlogger("/var/log/gardenbot.log")
-        self.thresholds = Gardenbot.load_yaml(os.path.join(dirname, "thresholds.yaml"))
         self.sensor = MiFloraSensor()
+        thresholds = Gardenbot.load_yaml(os.path.join(dirname, "thresholds.yaml"))
 
     def setup_pins(self):
         GPIO.setup(self.relay_channel_pump, GPIO.OUT, initial=GPIO.HIGH)
@@ -32,6 +36,7 @@ class Gardenbot:
         GPIO.output(channel, True)
 
     def water_plants(self, watering_time=30):
+        p = Protocol(water=1)
         self.gl.logger.info("Watering: {}".format(watering_time))
         self.open_water()
         time.sleep(watering_time)
@@ -59,18 +64,25 @@ class Gardenbot:
             return yaml.load(f)
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
-    def soil_is_wet(self):
-        sensor_data = json.loads(self.sensor.get_miflora_data())
+
+    @staticmethod
+    def soil_is_wet(sensor_data):
         moisture = sensor_data['moisture']
-        moisture_threshold = self.thresholds.get('moisture')
+        moisture_threshold = Gardenbot.thresholds.get('moisture')
         return moisture > moisture_threshold
 
     '''Returns a boolean if the soil is fertile or not'''
-    def soil_is_fertile(self):
-        sensor_data = json.loads(self.sensor.get_miflora_data())
+
+    @staticmethod
+    def soil_is_fertile(sensor_data):
         fertility = sensor_data['conductivity']
-        fertility_threshold = self.thresholds.get('conductivity')
+        fertility_threshold = Gardenbot.thresholds.get('conductivity')
         return fertility > fertility_threshold
+
+    @staticmethod
+    def persist(entity):
+        persist(entity)
+
 
 if __name__ == '__main__':
     gb = Gardenbot()
