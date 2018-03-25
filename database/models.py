@@ -13,6 +13,8 @@ class SensorData(Base):
     temperature = Column(Float)
     moisture = Column(Integer)
     fertility = Column(Integer)
+    light = Column(Integer)
+    battery = Column(Integer)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

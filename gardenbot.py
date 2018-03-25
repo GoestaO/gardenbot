@@ -64,7 +64,6 @@ class Gardenbot:
             return yaml.load(f)
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
-
     @staticmethod
     def soil_is_wet(sensor_data):
         moisture = sensor_data['moisture']
