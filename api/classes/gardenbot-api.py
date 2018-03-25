@@ -1,6 +1,6 @@
 import os, sys
 dirname = os.path.dirname(__file__)
-gardenbot_file = os.path.join(dirname, '..', '..', 'gardenbot.py')
+gardenbot_file = os.path.join(dirname, '..', '..')
 sys.path.append(gardenbot_file)
 from gardenbot import Gardenbot
 import time
