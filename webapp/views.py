@@ -108,6 +108,7 @@ def date_to_millis(d):
 @app.route("/history")
 def show_history():
     plot_data = gardenbot_client.get_history()
+    # plot_data = [[1521849600000, 3], [1521936000000, 5]]
     chartID = 'chart_ID'
     chart_type = 'line'
     chart_height = 350

@@ -12,10 +12,6 @@
             {{ chartID|safe }}
             var plot_data =
             {{ plot_data|safe }}
-            var plot_data_length = plot_data.length;
-            for (var i = 0; i < plot_data_length; i++) {
-                plot_data[i][0] = plot_data[i][0] * 1000;
-            }
             var series = [{"data": plot_data, "showInLegend": "false"}]
             var title =
             {{ title|safe }}

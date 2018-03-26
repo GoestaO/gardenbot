@@ -9,7 +9,8 @@ dirname = os.path.dirname(__file__)
 import json
 from database.models import Protocol
 from database.db import persist
-
+from configuration import load_yaml
+thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
 
 class Gardenbot:
     def __init__(self, relay_channel_ventile=17, float_switch_in=25, float_switch_out=4, watering_time=90):
@@ -20,7 +21,7 @@ class Gardenbot:
         self.watering_time = watering_time
         self.gl = Gardenlogger("/var/log/gardenbot.log")
         self.sensor = MiFloraSensor()
-        thresholds = Gardenbot.load_yaml(os.path.join(dirname, "thresholds.yaml"))
+
 
     def setup_pins(self):
         GPIO.setup(self.relay_channel_pump, GPIO.OUT, initial=GPIO.HIGH)
@@ -58,29 +59,24 @@ class Gardenbot:
     def close(self):
         GPIO.cleanup()
 
-    @staticmethod
-    def load_yaml(file):
-        with open(file) as f:
-            return yaml.load(f)
-
     '''Returns True, if the soil is wet enough and False if it is too dry'''
     @staticmethod
     def soil_is_wet(sensor_data):
-        moisture = sensor_data['moisture']
-        moisture_threshold = Gardenbot.thresholds.get('moisture')
+        moisture = sensor_data.get('moisture')
+        moisture_threshold = thresholds.get('moisture')
         return moisture > moisture_threshold
 
     '''Returns a boolean if the soil is fertile or not'''
-
     @staticmethod
     def soil_is_fertile(sensor_data):
-        fertility = sensor_data['conductivity']
-        fertility_threshold = Gardenbot.thresholds.get('conductivity')
+        fertility = sensor_data.get('conductivity')
+        fertility_threshold = thresholds.get('conductivity')
         return fertility > fertility_threshold
 
     @staticmethod
     def persist(entity):
         persist(entity)
+
 
 
 if __name__ == '__main__':
