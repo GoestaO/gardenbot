@@ -54,7 +54,7 @@ paths:
     get:
       summary: Returns watering activities
       description: Returns the watering activities of the last 5 days
-      operationId: classes.gardenbot-api.get_data
+      operationId: classes.gardenbot-api.water_history
       produces:
       - application/json;
       responses:
