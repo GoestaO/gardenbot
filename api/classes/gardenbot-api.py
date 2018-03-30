@@ -1,8 +1,8 @@
 import os, sys
 
 sys.path.append("/home/pi/gardenbot")
-from gardenbot import Gardenbot
-from sensor import MiFloraSensor
+from core.gardenbot import Gardenbot
+from core.sensor import MiFloraSensor
 sys.path.append("/home/pi/gardenbot/database")
 dirname = os.path.dirname(os.path.realpath(__name__))
 APPLICATION_ROOT = os.path.join(dirname, os.pardir)

@@ -3,8 +3,9 @@ import time, sys, os
 dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
-from gardenbot import Gardenbot
-from database.models import Protocol, SensorData
+from core.gardenbot import Gardenbot
+from database.models import Protocol
+
 
 class Waterjob(Gardenbot):
     def __init__(self):

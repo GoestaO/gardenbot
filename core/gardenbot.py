@@ -1,15 +1,13 @@
 import RPi.GPIO as GPIO
 import time
 import os
-import yaml
 from gardenlogger import Gardenlogger
-from sensor import MiFloraSensor
+from core.sensor import MiFloraSensor
 
 dirname = os.path.dirname(__file__)
-import json
 from database.models import Protocol
 from database.db import persist
-from configuration import load_yaml
+from core.configuration import load_yaml
 thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
 
 class Gardenbot:
@@ -19,7 +17,6 @@ class Gardenbot:
         self.float_switch_in = float_switch_in
         self.float_switch_out = float_switch_out
         self.watering_time = watering_time
-        self.gl = Gardenlogger("/var/log/gardenbot.log")
         self.sensor = MiFloraSensor()
 
 

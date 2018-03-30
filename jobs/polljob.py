@@ -1,12 +1,11 @@
-import time, sys, os
+import sys, os
 import json
 
 dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
 from database.db import persist
-from database.models import SensorData
-from sensor import MiFloraSensor
+from core.sensor import MiFloraSensor
 
 
 class Polljob(MiFloraSensor):
