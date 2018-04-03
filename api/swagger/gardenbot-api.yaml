@@ -10,7 +10,7 @@ paths:
   /watering/{seconds}:
     post:
       summary: Waters the plants
-      description: Opens the valve for the specified time (in seconds)
+      description: Runs the pump for the given time (in seconds)
       operationId: classes.gardenbot-api.water_plants
       produces:
         - text/plain;
@@ -24,7 +24,7 @@ paths:
       parameters:
         - name: seconds
           in: path
-          description: Time in seconds, the plants are supposed to be watered
+          description: Time in seconds, the plants shall be watered
           required: true
           type: string
         - name: API-Key

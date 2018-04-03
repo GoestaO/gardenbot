@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
+from gpiocrust import Header, OutputPin, InputPin
 import time
 import os
-from gardenlogger import Gardenlogger
 from core.sensor import MiFloraSensor
 
 dirname = os.path.dirname(__file__)
@@ -11,50 +11,51 @@ from core.configuration import load_yaml
 thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
 
 class Gardenbot:
-    def __init__(self, relay_channel_ventile=17, float_switch_in=25, float_switch_out=4, watering_time=90):
-        GPIO.setmode(GPIO.BCM)
-        self.relay_channel_pump = relay_channel_ventile
-        self.float_switch_in = float_switch_in
-        self.float_switch_out = float_switch_out
+    def __init__(self, relay_channel_pump=17, float_switch_in=25, float_switch_out=4, watering_time=90):
         self.watering_time = watering_time
         self.sensor = MiFloraSensor()
+        with Header() as header:
+            self.pump_pin = OutputPin(relay_channel_pump, value=1)
+            self.float_switch_in_pin = InputPin(float_switch_in)
+            self.float_switch_out_pin = OutputPin(float_switch_out, value=0)
 
-
-    def setup_pins(self):
-        GPIO.setup(self.relay_channel_pump, GPIO.OUT, initial=GPIO.HIGH)
-        GPIO.setup(self.float_switch_in, GPIO.IN)
-        GPIO.setup(self.float_switch_out, GPIO.OUT, initial=GPIO.LOW)
 
     @staticmethod
-    def relay_close_circuit(channel):
-        GPIO.output(channel, False)
+    def relay_close_circuit(pin: OutputPin):
+        pin.value = 0
 
     @staticmethod
-    def relay_open_circuit(channel):
-        GPIO.output(channel, True)
+    def relay_open_circuit(pin: OutputPin):
+        pin.value = 1
 
     def water_plants(self, watering_time=30):
         p = Protocol(water=1)
-        self.gl.logger.info("Watering: {}".format(watering_time))
+        persist(p)
         self.open_water()
         time.sleep(watering_time)
         self.close_water()
 
     def enough_water(self):
-        GPIO.output(self.float_switch_out, True)
+        self.float_switch_out_pin = True
+
+        # wait a bit
         time.sleep(1)
-        signal = GPIO.input(self.float_switch_in)
-        GPIO.output(self.float_switch_out, False)
+
+        # signal = GPIO.input(self.float_switch_in)
+        # True = circuit close, False = circuit open
+
+        signal = self.float_switch_in_pin.value
+        time.sleep(1)
+
+        #GPIO.output(self.float_switch_out, False)
+        self.float_switch_out_pin = False
         return not signal
 
     def open_water(self):
-        Gardenbot.relay_close_circuit(self.relay_channel_pump)
+        Gardenbot.relay_close_circuit(self.pump_pin)
 
     def close_water(self):
-        Gardenbot.relay_open_circuit(self.relay_channel_pump)
-
-    def close(self):
-        GPIO.cleanup()
+        Gardenbot.relay_open_circuit(self.pump_pin)
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
     @staticmethod
@@ -78,8 +79,4 @@ class Gardenbot:
 
 if __name__ == '__main__':
     gb = Gardenbot()
-    gb.setup_pins()
     gb.close_water()
-    gb.measure_moisture()
-    gb.close()
-    gb.exit()
