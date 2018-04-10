@@ -1,5 +1,5 @@
 from flask import Flask, g
-from core.configuration import Configuration
+from configuration import Configuration
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate, MigrateCommand

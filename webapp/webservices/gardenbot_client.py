@@ -28,7 +28,6 @@ def check():
 
 
 """Retrieves the watering history from the gardenbot"""
-
 def get_history():
     header = {'Content-Type': 'application/json', 'Accept': 'Accept: application/json',
               'API-Key': 'a1c86893-841e-45c6-9f1f-f8a31a58d601'}

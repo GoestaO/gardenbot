@@ -43,9 +43,9 @@ class Waterjob(Gardenbot):
 
 
 if __name__ == '__main__':
-    gj = Waterjob()
-    gj.setup_pins()
-    gj.close_water()
-    gj.measure_moisture()
-    gj.close()
+    wj = Waterjob()
+    wj.setup_pins()
+    wj.close_water()
+    wj.measure_moisture()
+    wj.close()
     Waterjob.exit()

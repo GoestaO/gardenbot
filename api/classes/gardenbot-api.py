@@ -1,6 +1,6 @@
 import os, sys
 
-sys.path.append("/home/pi/gardenbot")
+#sys.path.append("/home/pi/gardenbot")
 from core.gardenbot import Gardenbot
 from core.sensor import MiFloraSensor
 sys.path.append("/home/pi/gardenbot/database")
@@ -16,11 +16,9 @@ import json
 @authservice.requires_token
 def water_plants(seconds):
     gb = Gardenbot()
-    gb.setup_pins()
     gb.close_water()
     watering_time = int(seconds)
     gb.water_plants(watering_time)
-    gb.close()
     msg = "The plants have been watered for {0} seconds".format(seconds)
     return Response(msg)
 
@@ -35,17 +33,13 @@ def check_moisture():
 
 
 """Returns a list of list with [date, number of waterings]"""
-
-
 @authservice.requires_token
 def water_history():
-    return json.dumps(get_water_history_from_db())
-
+    return json.dumps([tuple(row) for row in get_water_history_from_db()])
 
 @authservice.requires_token
 def get_water_status():
     gb = Gardenbot()
-    gb.setup_pins()
     return str(gb.enough_water())
 
 
