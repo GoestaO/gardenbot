@@ -35,8 +35,7 @@ def check_moisture():
 """Returns a list of list with [date, number of waterings]"""
 @authservice.requires_token
 def water_history():
-    return json.dumps(get_water_history_from_db())
-
+    return json.dumps([tuple(row) for row in get_water_history_from_db()])
 
 @authservice.requires_token
 def get_water_status():

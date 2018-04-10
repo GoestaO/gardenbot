@@ -34,7 +34,6 @@ def get_water_history_from_db():
     session.close()
     return result
 
-if __name__ == "__main__":
-    print(get_water_history())
+
 
 

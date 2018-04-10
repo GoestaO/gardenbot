@@ -2,7 +2,7 @@ api.conf
 .idea/workspace.xml
 .idea/
 *.pyc
-
+/webapp/gardenbot.db
 
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm

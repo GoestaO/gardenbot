@@ -31,7 +31,6 @@ def water():
 def status():
     soil_is_wet = gardenbot_client.check()
     return soil_is_wet
-    # return render_template("history.html", soil_is_wet=soil_is_wet)
 
 
 @app.route("/waterstatus", methods=['GET'])
