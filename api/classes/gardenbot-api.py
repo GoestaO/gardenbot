@@ -1,12 +1,8 @@
-import os, sys
-
-#sys.path.append("/home/pi/gardenbot")
-from core.gardenbot import Gardenbot
+import os
+import sys
+sys.path.append('..')
 from core.sensor import MiFloraSensor
-sys.path.append("/home/pi/gardenbot/database")
-dirname = os.path.dirname(os.path.realpath(__name__))
-APPLICATION_ROOT = os.path.join(dirname, os.pardir)
-sys.path.extend(APPLICATION_ROOT)
+from core.gardenbot import Gardenbot
 from database.db import get_water_history_from_db
 from flask import Response
 from classes import authservice

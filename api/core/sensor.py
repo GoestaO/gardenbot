@@ -1,6 +1,8 @@
+import json, sys, os
+sys.path.append('..')
 from miflora.backends.gatttool import GatttoolBackend
 from miflora.miflora_poller import MiFloraPoller, MI_CONDUCTIVITY, MI_MOISTURE, MI_LIGHT, MI_TEMPERATURE, MI_BATTERY
-import json
+
 from database.models import SensorData
 from database.db import persist
 

@@ -1,10 +1,12 @@
-import time, sys, os
+import os
+import sys
+import time
 
 dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
-from core.gardenbot import Gardenbot
-from database.models import Protocol
+from api.core.gardenbot import Gardenbot
+from api.database import Protocol
 
 
 class Waterjob(Gardenbot):

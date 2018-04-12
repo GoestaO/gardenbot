@@ -1,15 +1,15 @@
 #import RPi.GPIO as GPIO
-from gpiocrust import Header, OutputPin, InputPin
+import os,sys
 import time
-import os
+sys.path.extend('..')
+dirname = os.path.dirname(os.path.realpath(__file__))
+APPLICATION_ROOT = os.path.abspath(os.path.join(dirname, '..'))
+from gpiocrust import Header, OutputPin, InputPin
 from core.sensor import MiFloraSensor
-
-dirname = os.path.dirname(__file__)
 from database.models import Protocol
 from database.db import persist
-from core.configuration import load_yaml
-thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
-
+from util.helper import load_yaml
+thresholds = load_yaml(os.path.join(APPLICATION_ROOT, 'configuration.yaml')).get('thresholds')
 class Gardenbot:
     def __init__(self, relay_channel_pump=17, float_switch_in=25, float_switch_out=4, watering_time=90):
         self.watering_time = watering_time
