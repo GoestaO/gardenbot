@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 from core.sensor import MiFloraSensor
 from core.gardenbot import Gardenbot
-from database.db import get_water_history_from_db
+from database.db import get_water_history_from_db, get_sensordata_from_db
 from flask import Response
 from classes import authservice
 import json
@@ -30,8 +30,15 @@ def check_moisture():
 
 """Returns a list of list with [date, number of waterings]"""
 @authservice.requires_token
-def water_history():
+def get_water_history():
     return json.dumps([tuple(row) for row in get_water_history_from_db()])
+
+
+"""Returns a list of list with [date, number of waterings]"""
+@authservice.requires_token
+def get_sensor_history():
+    return json.dumps([tuple(row) for row in get_sensordata_from_db()])
+
 
 @authservice.requires_token
 def get_water_status():

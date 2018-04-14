@@ -50,11 +50,11 @@ paths:
           in: header
           type: string
           required: true
-  /history:
+  /water_history:
     get:
       summary: Returns watering activities
       description: Returns the watering activities of the last 5 days
-      operationId: classes.gardenbot-api.water_history
+      operationId: classes.gardenbot-api.get_water_history
       produces:
       - application/json;
       responses:
@@ -63,7 +63,30 @@ paths:
           schema:
             type: string
           examples:
-            "text/plain": "Showing the activity log"
+            "text/plain": "[
+                              [
+                                '2018-04-11', 1
+                              ]
+                          ]"
+      parameters:
+        - name: API-Key
+          in: header
+          type: string
+          required: true
+  /sensordata_history:
+    get:
+      summary: Returns sensordata of the past
+      description: Returns timestamp, temperatur, moisture, fertility, light and battery of the past
+      operationId: classes.gardenbot-api.get_sensor_history
+      produces:
+      - application/json;
+      responses:
+        200:
+          description: history response
+          schema:
+            type: string
+          examples:
+            "text/plain": test
       parameters:
         - name: API-Key
           in: header
@@ -71,7 +94,7 @@ paths:
           required: true
   /waterstatus:
     get:
-      summary: Returns watering activities
+      summary: Water indicator
       description: Returns true, if there's enough water in the tank, otherwise false
       operationId: classes.gardenbot-api.get_water_status
       produces:

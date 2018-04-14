@@ -31,10 +31,15 @@ def get_water_history_from_db():
     session.close()
     return result
 
+
+def get_sensordata_from_db():
+    session = Session()
+    sql = "SELECT timestamp, temperature, moisture, fertility, light, battery from sensordata;"
+    result = session.execute(sql).fetchall()
+    session.close()
+    return result
+
+
 if __name__ == "__main__":
     print(SQLALCHEMY_DATABASE_URI)
     print(get_water_history_from_db())
-
-
-
-

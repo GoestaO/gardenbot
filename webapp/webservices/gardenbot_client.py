@@ -27,10 +27,19 @@ def check():
 
 
 """Retrieves the watering history from the gardenbot"""
-def get_history():
+def get_water_history():
     url = "{}history".format(URL)
     r = requests.get(url=url, headers=header)
     return r.json()
+
+"""Retrieves the sensordata history from the gardenbot"""
+
+
+def get_sensordata_history():
+    url = "{}sensordata_history".format(URL)
+    r = requests.get(url=url, headers=header)
+    return r.json()
+
 
 
 def get_water_status():

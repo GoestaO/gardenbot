@@ -5,9 +5,6 @@ import sys
 dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
-from api.database import persist
-from api.core.sensor import MiFloraSensor
-
 
 class Polljob(MiFloraSensor):
     def __init__(self):
