@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 from core.sensor import MiFloraSensor
 from core.gardenbot import Gardenbot
-from database.db import get_water_history_from_db, get_sensordata_from_db
+from database.db import get_water_history_from_db, get_sensordata_from_db, persist
 from flask import Response
 from classes import authservice
 import json
@@ -41,9 +41,10 @@ def get_sensor_history():
 
 
 @authservice.requires_token
-def get_water_status():
-    gb = Gardenbot()
-    return str(gb.enough_water())
+def get_sensor_data():
+    sensor = MiFloraSensor()
+    sensor_data = sensor.get_miflora_data()
+    return sensor_data
 
 
 @authservice.requires_token
@@ -51,3 +52,6 @@ def get_water_status():
     gb = Gardenbot()
     gb.setup_pins()
     return json.dumps(gb.enough_water())
+
+
+

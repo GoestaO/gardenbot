@@ -13,7 +13,7 @@ class Polljob(MiFloraSensor):
     def save(self):
         # Call sensor
         sensor_data = json.loads(self.get_miflora_data())
-        entity = MiFloraSensor.get_sensor_data(sensor_data)
+        entity = MiFloraSensor.create_sensordata_entity(sensor_data)
         persist(entity)
 
 

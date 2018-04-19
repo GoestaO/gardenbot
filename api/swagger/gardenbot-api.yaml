@@ -1,7 +1,7 @@
 swagger: "2.0"
 
 info:
-  title: "{{title}}"
+  title: "Gardenbot API"
   version: "1.0"
 
 basePath: /v1.0
@@ -63,9 +63,14 @@ paths:
           schema:
             type: string
           examples:
-            "text/plain": "[
+            "text/json": "[
                               [
                                 '2018-04-11', 1
+                              ]
+                          ],
+                          [
+                              [
+                                '2018-04-12', 3
                               ]
                           ]"
       parameters:
@@ -76,7 +81,7 @@ paths:
   /sensordata_history:
     get:
       summary: Returns sensordata of the past
-      description: Returns timestamp, temperatur, moisture, fertility, light and battery of the past
+      description: Returns timestamp, temperature, moisture, fertility, light and battery of the past
       operationId: classes.gardenbot-api.get_sensor_history
       produces:
       - application/json;
@@ -92,10 +97,27 @@ paths:
           in: header
           type: string
           required: true
+  /sensordata:
+    get:
+      summary: Returns the current sensor data
+      description: Returns current temperature, moisture, fertility, light and battery
+      operationId: classes.gardenbot-api.get_sensor_data
+      produces:
+      - application/json;
+      responses:
+        200:
+          description: positive
+          schema:
+            type: string
+      parameters:
+        - name: API-Key
+          in: header
+          type: string
+          required: true
   /waterstatus:
     get:
       summary: Water indicator
-      description: Returns true, if there's enough water in the tank, otherwise false
+      description: Returns true, if there's enough water in the bucket, otherwise false
       operationId: classes.gardenbot-api.get_water_status
       produces:
       - application/json;

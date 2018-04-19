@@ -4,7 +4,7 @@ base_url_local = 'http://gardenbot.local/v1.0/'
 header = {'Content-Type': 'application/json', 'Accept': 'application/problem+json',
            'API-Key': 'd617f2d7-df3b-47e5-8dd6-86bbf1efec61'}
 
-base_url_test = 'http://gardenbot.local:5000/v1.0/'
+base_url_test = 'http://gardenbot.local/v1.0/'
 base_url_remote = "https://797e6e7778.dataplicity.io/v1.0/"
 
 URL = base_url_test
@@ -28,9 +28,11 @@ def check():
 
 """Retrieves the watering history from the gardenbot"""
 def get_water_history():
-    url = "{}history".format(URL)
+    url = "{}water_history".format(URL)
+    print(url)
     r = requests.get(url=url, headers=header)
     return r.json()
+
 
 """Retrieves the sensordata history from the gardenbot"""
 

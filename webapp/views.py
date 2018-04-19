@@ -5,7 +5,7 @@ from app import login_manager
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-import time
+import datetime, time
 
 @login_manager.user_loader
 def load_user(id):
@@ -73,21 +73,6 @@ def logout():
     return redirect(request.args.get("next") or url_for("homepage"))
 
 
-@app.route("/get_history_data", methods=["GET"])
-def get_history_data():
-    json = gardenbot_client.get_history()
-    for item in json:
-        if str(item[1]).__contains__("INFO: Wet enough"):
-            item[1] = "0"
-        else:
-            item[1] = "60"
-    return jsonify(json)
-
-
-# def convert_to_int(input):
-#     return int(input)
-#
-#
 def convert_dataframe(data):
     df = pd.DataFrame(data)
     df.columns = ['Date', 'Watering']
@@ -99,25 +84,30 @@ def convert_dataframe(data):
     return plot_data
 
 
-def date_to_millis(d):
+def date_to_millis(date_string):
+    dateobject = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     """Converts a datetime object to the number of milliseconds since the unix epoch."""
-    return int(time.mktime(d.timetuple()) * 1000)
+    return int(time.mktime(dateobject.timetuple()) * 1000)
 
 
 @app.route("/history")
 def show_history():
-    plot_data = gardenbot_client.get_water_history()
-    # plot_data = [[1521849600000, 3], [1521936000000, 5]]
-    chartID = 'chart_ID'
-    chart_type = 'line'
-    chart_height = 350
-    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-    series = [{"data": plot_data, "showInLegend": "false"}]
+    water_history = gardenbot_client.get_water_history()
+    plot_data = list(map(lambda x: date_to_millis(x[0]), water_history))
+    print(plot_data)
 
-    title = {"text": 'Watering activities'}
-    xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
-    yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
-    return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
-                           yAxis=yAxis, plot_data=plot_data)
+    #print(convert_dataframe(plot_data))
+    #plot_data = [[1523397600000, 3], [1521936000000, 5]]
+    # chartID = 'chart_ID'
+    # chart_type = 'line'
+    # chart_height = 350
+    # chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
+    # series = [{"data": plot_data, "showInLegend": "false"}]
+    #
+    # title = {"text": 'Watering activities'}
+    # xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
+    # yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
+    # return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
+    #                        yAxis=yAxis, plot_data=plot_data)
 
 

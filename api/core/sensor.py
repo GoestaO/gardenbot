@@ -26,7 +26,7 @@ class MiFloraSensor:
         return json.dumps(d)
 
     @staticmethod
-    def get_sensor_data(sensor_data):
+    def create_sensordata_entity(sensor_data):
         p = SensorData(temperature=sensor_data['temperature'], moisture=sensor_data['moisture'],
                        fertility=sensor_data['conductivity'], light=sensor_data['light'], battery=sensor_data['battery'])
         return p
@@ -40,7 +40,7 @@ class MiFloraSensor:
         sensor_data = json.loads(self.get_miflora_data())
 
         # Create entity from sensor_data
-        entity = MiFloraSensor.get_sensor_data(sensor_data)
+        entity = MiFloraSensor.create_sensordata_entity(sensor_data)
 
         # Save data
         persist(entity)
@@ -48,13 +48,5 @@ class MiFloraSensor:
 
 if __name__ == '__main__':
     sensor = MiFloraSensor()
-    sensor.save()
-    # sensor_data = json.loads(sensor.get_miflora_data())
-    # print(test_data)
-    # data = MiFloraSensor.get_sensor_data(test_data)
-    # print(data)
-    # MiFloraSensor.persist(data)
-    #
-    # p = Protocol()
-    # p.water = 1
-    # MiFloraSensor.persist(p)
+    #sensor.save()
+
