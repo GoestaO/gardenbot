@@ -15,6 +15,7 @@ class Configuration(object):
     APPLICATION_PASSWORD = u'$2a$04$0hPiiaPtniIy3HpgbzgEi.Ss532/le3pqOBwxAUThMdVNcvgpMcvC'
     SQLALCHEMY_POOL_RECYCLE = 299
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    API_KEY = _read_config().get('API').get('keys')[0]
+    GARDENBOT_API_KEY = _read_config().get('gardenbot').get('key')
+    OPENWEATHER_API_KEY = _read_config().get('openweather').get('key')
 
 
