@@ -7,7 +7,8 @@ from sqlalchemy.orm import sessionmaker
 CURRENT_DIR = os.path.dirname(__file__)
 APPLICATION_DIR = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 sys.path.append(CURRENT_DIR)
-SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}/{1}'.format(CURRENT_DIR, 'gardenbot.db')
+# SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}/{1}'.format(CURRENT_DIR, 'gardenbot.db')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///var/www/gardenbot-api/database/gardenbot.db'
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
 
@@ -21,7 +22,7 @@ def persist(entity):
 
 def get_water_history_from_db():
     session = Session()
-    sql = "SELECT date(protocol.timestamp), " \
+    sql = "SELECT strftime('%s', date(protocol.timestamp))*1000, " \
           "count(protocol.water) " \
           "FROM protocol " \
           "GROUP BY date(protocol.timestamp) " \

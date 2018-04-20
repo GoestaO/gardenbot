@@ -92,22 +92,18 @@ def date_to_millis(date_string):
 
 @app.route("/history")
 def show_history():
-    water_history = gardenbot_client.get_water_history()
-    plot_data = list(map(lambda x: date_to_millis(x[0]), water_history))
-    print(plot_data)
+    plot_data = gardenbot_client.get_water_history()
 
-    #print(convert_dataframe(plot_data))
-    #plot_data = [[1523397600000, 3], [1521936000000, 5]]
-    # chartID = 'chart_ID'
-    # chart_type = 'line'
-    # chart_height = 350
-    # chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-    # series = [{"data": plot_data, "showInLegend": "false"}]
-    #
-    # title = {"text": 'Watering activities'}
-    # xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
-    # yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
-    # return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
-    #                        yAxis=yAxis, plot_data=plot_data)
+    chartID = 'chart_ID'
+    chart_type = 'line'
+    chart_height = 350
+    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
+    series = [{"data": plot_data, "showInLegend": "false"}]
+
+    title = {"text": 'Watering activities'}
+    xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
+    yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
+    return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
+                           yAxis=yAxis, plot_data=plot_data)
 
 

@@ -55,7 +55,6 @@ class Gardenbot:
         signal = GPIO.input(self.float_switch_in)
         # True = circuit close, False = circuit open
 
-        signal = self.float_switch_in_pin.value
         time.sleep(1)
 
         GPIO.output(self.float_switch_out, False)

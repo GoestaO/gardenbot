@@ -40,10 +40,14 @@ def get_sensor_history():
     return json.dumps([tuple(row) for row in get_sensordata_from_db()])
 
 
+"""Returns the current sensor data and persists them in the database as well """
 @authservice.requires_token
 def get_sensor_data():
     sensor = MiFloraSensor()
     sensor_data = sensor.get_miflora_data()
+    sensor_data_json = json.loads(sensor_data)
+    sensor_data_entity = MiFloraSensor.create_sensordata_entity(sensor_data_json)
+    persist(sensor_data_entity)
     return sensor_data
 
 
