@@ -1,8 +1,13 @@
 import requests
+import sys
+sys.path.extend('..')
+from configuration import Configuration
 
 base_url_local = 'http://gardenbot.local/v1.0/'
+
+API_KEY = Configuration.API_KEY
 header = {'Content-Type': 'application/json', 'Accept': 'application/problem+json',
-           'API-Key': 'd617f2d7-df3b-47e5-8dd6-86bbf1efec61'}
+           'API-Key': API_KEY}
 
 base_url_test = 'http://gardenbot.local/v1.0/'
 base_url_remote = "https://797e6e7778.dataplicity.io/v1.0/"

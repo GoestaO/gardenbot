@@ -1,4 +1,11 @@
 import os
+import yaml
+
+
+def _read_config():
+    with open('api.conf') as config_file:
+        conf = yaml.load(config_file)
+    return conf
 
 class Configuration(object):
     APPLICATION_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -8,3 +15,6 @@ class Configuration(object):
     APPLICATION_PASSWORD = u'$2a$04$0hPiiaPtniIy3HpgbzgEi.Ss532/le3pqOBwxAUThMdVNcvgpMcvC'
     SQLALCHEMY_POOL_RECYCLE = 299
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    API_KEY = _read_config().get('API').get('keys')[0]
+
+
