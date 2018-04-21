@@ -17,5 +17,6 @@ class Configuration(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     GARDENBOT_API_KEY = _read_config().get('gardenbot').get('key')
     OPENWEATHER_API_KEY = _read_config().get('openweather').get('key')
+    GARDENBOT_API_URL = _read_config().get('gardenbot').get('url')
 
 

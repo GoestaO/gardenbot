@@ -6,14 +6,13 @@ from configuration import Configuration
 base_url_local = 'http://gardenbot.local/v1.0/'
 
 API_KEY = Configuration.GARDENBOT_API_KEY
+URL_REMOTE = Configuration.GARDENBOT_API_URL
 header = {'Content-Type': 'application/json', 'Accept': 'application/problem+json',
            'API-Key': API_KEY}
 
-print(header)
 base_url_test = 'http://gardenbot.local/v1.0/'
-base_url_remote = "https://797e6e7778.dataplicity.io/v1.0/"
 
-URL = base_url_test
+URL = URL_REMOTE
 
 def water_plants(seconds):
     url = "{}/watering/{}".format(URL, str(seconds))
