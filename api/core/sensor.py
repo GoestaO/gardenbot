@@ -1,6 +1,6 @@
 import json, sys, os
 sys.path.append('..')
-from miflora.backends.gatttool import GatttoolBackend
+from btlewrap.gatttool import GatttoolBackend
 from miflora.miflora_poller import MiFloraPoller, MI_CONDUCTIVITY, MI_MOISTURE, MI_LIGHT, MI_TEMPERATURE, MI_BATTERY
 
 from database.models import SensorData
@@ -48,5 +48,6 @@ class MiFloraSensor:
 
 if __name__ == '__main__':
     sensor = MiFloraSensor()
+    print(sensor.get_miflora_data())
     #sensor.save()
 
