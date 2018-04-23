@@ -25,7 +25,7 @@
     </style>
     <div align="center">
 
-        <table>
+        <table id="commandTable">
             <tr>
                 {% if current_user.is_authenticated %}
                     <td class="symbol">
@@ -38,7 +38,7 @@
                             <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
                         </div>
                     <td class="symbol">
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/soil.png') }}"
+                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
                                height="64"
                                width="64"
                                onclick="getSoilStatus();"/>
@@ -53,7 +53,8 @@
                         </div>
                     </td>
                     <td class="symbol">
-                        <input type="image" id="water_level" src="{{ url_for('static', filename='img/water_level.png') }}"
+                        <input type="image" id="water_level"
+                               src="{{ url_for('static', filename='img/water_level.png') }}"
                                height="64"
                                width="64"
                                onclick="enoughWater();"/>
@@ -69,22 +70,19 @@
                     </td>
                 {% endif %}
             </tr>
-            <tr>
-                <td class="symbol">
-                    {#                    <img src="{{ url_for('static', filename='img/temperature.jpg') }}"#}
-                    {#                         height="64" width="64">#}
-
-                    <img src="{{ weather_icon_url }}"
-                         height="64" width="64">
-                    {{ current_weather.get('main').get('temp')|round|int }} °C
-                </td>
-                <td class="symbol">
-                    <a href="{{ url_for('show_history') }}">
-                        <img src="{{ url_for('static', filename='img/history.png') }}"
-                             height="64" width="64">
-                        </a>
-                </td>
-            </tr>
+{#            <tr>#}
+{#                <td class="symbol">#}
+{#                    <img src="{{ weather_icon_url }}"#}
+{#                         height="64" width="64">#}
+{#                    {{ current_weather.get('main').get('temp')|round|int }} °C#}
+{#                </td>#}
+{#                <td class="symbol">#}
+{#                    <a href="{{ url_for('show_history') }}">#}
+{#                        <img src="{{ url_for('static', filename='img/history.png') }}"#}
+{#                             height="64" width="64">#}
+{#                    </a>#}
+{#                </td>#}
+{#            </tr>#}
         </table>
     </div>
 {% endblock %}

@@ -28,7 +28,8 @@ function resetPage() {
 
 function getSoilStatus() {
     var documentURL = document.URL;
-    var target = documentURL.concat("status");
+    var target = documentURL.concat("sensordata");
+    console.log(target);
     $.ajax({
         type: "GET",
         url: target,
@@ -38,13 +39,14 @@ function getSoilStatus() {
         },
         success: function (data) {
             $("#loading_animation_sensor").hide();
-            if (data == 'True') {
-                $("#ok_sensor").show();
-            } else if (data == 'False') {
-                $("#not_ok_sensor").show();
-            }
-            $("#ok_sensor").delay(5000).hide('fast');
-            $("#not_ok_sensor").delay(5000).hide('fast');
+            // if (data == 'True') {
+            //     $("#ok_sensor").show();
+            // } else if (data == 'False') {
+            //     $("#not_ok_sensor").show();
+            // }
+            // $("#ok_sensor").delay(5000).hide('fast');
+            // $("#not_ok_sensor").delay(5000).hide('fast');
+            console.log(data);
             $("#sensor").delay(5100).show('fast');
         }
     });

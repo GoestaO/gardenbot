@@ -33,6 +33,13 @@ def status():
     return soil_is_wet
 
 
+@app.route("/sensordata", methods=['GET'])
+@login_required
+def sensordata():
+    sensor_data = gardenbot_client.get_sensor_data()
+    return jsonify(sensor_data)
+
+
 @app.route("/waterstatus", methods=['GET'])
 @login_required
 def water_status():

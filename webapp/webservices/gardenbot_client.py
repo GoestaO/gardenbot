@@ -1,6 +1,7 @@
 import requests
 import sys
-sys.path.extend('..')
+sys.path.insert(0, '..')
+
 from configuration import Configuration
 
 base_url_local = 'http://gardenbot.local/v1.0/'
@@ -47,12 +48,18 @@ def get_sensordata_history():
     return r.json()
 
 
-
 def get_water_status():
     url = "{}waterstatus".format(URL)
     r = requests.get(url=url, headers=header)
     return r.json()
 
+
+def get_sensor_data():
+    url = "{}sensordata".format(URL)
+    r = requests.get(url=url, headers=header)
+    return r.json()
+
+
 if __name__ == "__main__":
-    json = get_water_status()
+    json = get_sensor_data()
     print(json)
