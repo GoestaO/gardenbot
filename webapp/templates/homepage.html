@@ -1,31 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <style>
-        table, th, td {
-            alignment: center;
-            text-align: center;
-        }
-
-        td.symbol {
-            width: 100px;
-            text-align: center;
-        }
-
-        td.status {
-            alignment: right;
-            text-align: center;
-        }
-
-        td img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-    </style>
     <div align="center">
-
-        <table id="commandTable">
+        <table id="command_table">
             <tr>
                 {% if current_user.is_authenticated %}
                     <td class="symbol">
@@ -41,7 +17,7 @@
                         <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
                                height="64"
                                width="64"
-                               onclick="getSoilStatus();"/>
+                               onclick="getSensorData();"/>
                         <div id="loading_animation_sensor">
                             <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
                         </div>
@@ -70,20 +46,26 @@
                     </td>
                 {% endif %}
             </tr>
-{#            <tr>#}
-{#                <td class="symbol">#}
-{#                    <img src="{{ weather_icon_url }}"#}
-{#                         height="64" width="64">#}
-{#                    {{ current_weather.get('main').get('temp')|round|int }} °C#}
-{#                </td>#}
-{#                <td class="symbol">#}
-{#                    <a href="{{ url_for('show_history') }}">#}
-{#                        <img src="{{ url_for('static', filename='img/history.png') }}"#}
-{#                             height="64" width="64">#}
-{#                    </a>#}
-{#                </td>#}
-{#            </tr>#}
+            {#            <tr>#}
+            {#                <td class="symbol">#}
+            {#                    <img src="{{ weather_icon_url }}"#}
+            {#                         height="64" width="64">#}
+            {#                    {{ current_weather.get('main').get('temp')|round|int }} °C#}
+            {#                </td>#}
+            {#                <td class="symbol">#}
+            {#                    <a href="{{ url_for('show_history') }}">#}
+            {#                        <img src="{{ url_for('static', filename='img/history.png') }}"#}
+            {#                             height="64" width="64">#}
+            {#                    </a>#}
+            {#                </td>#}
+            {#            </tr>#}
         </table>
+    <br/>
+    <br/>
+    <br/>
+{#        {% if current_user.is_authenticated %}#}
+            {% include  "sensor_data_table.html" %}
+{#        {% endif %}#}
     </div>
 {% endblock %}
 

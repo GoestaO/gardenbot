@@ -23,13 +23,12 @@ function resetPage() {
     $("#not_ok_water").hide();
     $("#positive").hide();
     $("#negative").hide();
-
+    $("#sensordata_table").hide();
 }
 
-function getSoilStatus() {
+function getSensorData() {
     var documentURL = document.URL;
     var target = documentURL.concat("sensordata");
-    console.log(target);
     $.ajax({
         type: "GET",
         url: target,
@@ -39,14 +38,58 @@ function getSoilStatus() {
         },
         success: function (data) {
             $("#loading_animation_sensor").hide();
-            // if (data == 'True') {
-            //     $("#ok_sensor").show();
-            // } else if (data == 'False') {
-            //     $("#not_ok_sensor").show();
-            // }
-            // $("#ok_sensor").delay(5000).hide('fast');
-            // $("#not_ok_sensor").delay(5000).hide('fast');
-            console.log(data);
+            $("#sensor").show('fast');
+            setSensorResults(data);
+            $("#sensordata_table").show();
+            // $("#sensordata_table").delay(10000).hide('fast');
+
+        }
+    });
+}
+
+function setSensorResults(data) {
+    $("#temperature_value").text(data['temperature'] + " °C");
+    $("#humidity_value").text(data['moisture'] + " %")
+    $("#fertility_value").text(data['conductivity'])
+    $("#light_value").text(data['light'])
+}
+
+function renderSensorDataTable(data) {
+    $('#sensordata_table').append(
+                "<tr>",
+                "<td>Light: </td>",
+                "<td>" + data['light'] + "</td>",
+                 "</tr>",
+                 "<tr>",
+                "<td>Moisture: </td>",
+                "<td>" + data['moisture'] + "</td>",
+                 "</tr>",
+                 "<tr>",
+                "<td>Fertility: </td>",
+                "<td>" + data['conductivity'] + "</td>",
+                "</tr>"
+            );
+}
+
+function getSoilStatus() {
+    var documentURL = document.URL;
+    var target = documentURL.concat("status");
+    $.ajax({
+        type: "GET",
+        url: target,
+        beforeSend: function () {
+            $("#loading_animation_sensor").show();
+            $("#sensor").hide();
+        },
+        success: function (data) {
+            $("#loading_animation_sensor").hide();
+            if (data == 'True') {
+                $("#ok_sensor").show();
+            } else if (data == 'False') {
+                $("#not_ok_sensor").show();
+            }
+            $("#ok_sensor").delay(5000).hide('fast');
+            $("#not_ok_sensor").delay(5000).hide('fast');
             $("#sensor").delay(5100).show('fast');
         }
     });

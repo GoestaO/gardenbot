@@ -27,8 +27,6 @@ def water_plants(seconds):
 def check():
     url = "{}check".format(URL)
     r = requests.post(url=url, headers=header)
-    # text = check()
-    # print(text)
     return r.text
 
 

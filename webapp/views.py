@@ -7,6 +7,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 import datetime, time
 
+testdata = {'name': 'Flower care', 'firmware': '3.1.8', 'conductivity': 547, 'battery': 99, 'moisture': 21, 'temperature': 23.7, 'light': 3410}
+
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -14,9 +17,9 @@ def load_user(id):
 
 @app.route('/')
 def homepage():
-    current_weather = weather_client.get_current_weather()
-    weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
-    return render_template('homepage.html', current_weather=current_weather, weather_icon_url=weather_icon_url)
+    # current_weather = weather_client.get_current_weather()
+    # weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
+    return render_template('homepage.html')
 
 
 @app.route('/water', methods=['GET'])
@@ -37,7 +40,9 @@ def status():
 @login_required
 def sensordata():
     sensor_data = gardenbot_client.get_sensor_data()
+    # sensor_data = testdata
     return jsonify(sensor_data)
+    # return render_template("sensor_data_table.html", sensor_data=jsonify(sensor_data))
 
 
 @app.route("/waterstatus", methods=['GET'])
