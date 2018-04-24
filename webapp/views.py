@@ -40,9 +40,7 @@ def status():
 @login_required
 def sensordata():
     sensor_data = gardenbot_client.get_sensor_data()
-    # sensor_data = testdata
     return jsonify(sensor_data)
-    # return render_template("sensor_data_table.html", sensor_data=jsonify(sensor_data))
 
 
 @app.route("/waterstatus", methods=['GET'])

@@ -33,6 +33,7 @@ function getSensorData() {
         type: "GET",
         url: target,
         beforeSend: function () {
+            $("#sensordata_table").hide();
             $("#loading_animation_sensor").show();
             $("#sensor").hide();
         },
