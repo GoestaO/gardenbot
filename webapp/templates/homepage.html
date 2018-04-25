@@ -60,11 +60,11 @@
             {#                </td>#}
             {#            </tr>#}
         </table>
-    <br/>
-{#        {% if current_user.is_authenticated %}#}
-            {% include  "sensor_data_table.html" %}
-{#        {% endif %}#}
+        <br/>
+        {% include  "sensor_data_table.html" %}
     </div>
+
+
 {% endblock %}
 
 {% block aside %}

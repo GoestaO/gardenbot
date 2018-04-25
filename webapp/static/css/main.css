@@ -287,10 +287,10 @@ nav a:hover {
     *zoom: 1;
 }
 
-table, tr, td {
-    border-color: black;
-    border-width: 2px;
-}
+/*table, tr, td {*/
+/*border-color: black;*/
+/*border-width: 2px;*/
+/*}*/
 
 /* ==========================================================================
    Print styles
@@ -360,20 +360,27 @@ table, tr, td {
         text-align: center;
     }
 
-    td.symbol {
-        width: 100px;
-        text-align: center;
-    }
-
-    td.status {
-        alignment: right;
-        text-align: center;
-    }
-
-    td img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
 }
+
+td.symbol {
+    width: 100px;
+    text-align: center;
+}
+
+td.status {
+    alignment: left;
+    text-align: center;
+}
+
+/*td img {*/
+/*display: block;*/
+/*margin-left: auto;*/
+/*margin-right: auto;*/
+/*}*/
+
+td {
+    padding: 8px;
+    margin: 0;
+    border: 0;
+}
+td.spaced {margin-left: 20px;}
