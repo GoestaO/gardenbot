@@ -49,7 +49,8 @@ function getSensorData() {
 }
 
 function setSensorResults(data) {
-    $("#temperature_value").text(data['temperature'] + " °C");
+    var temperature = Math.round(data['temperature']);
+    $("#temperature_value").text(temperature + " °C");
     $("#humidity_value").text(data['moisture'] + " %")
     $("#fertility_value").text(data['conductivity'])
     $("#light_value").text(data['light'])
