@@ -24,9 +24,12 @@ function resetPage() {
     $("#positive").hide();
     $("#negative").hide();
     $("#sensordata_table").hide();
+    $("#history_chart").hide();
+    $("#loading_animation_history").hide();
 }
 
 function getSensorData() {
+    resetPage();
     var documentURL = document.URL;
     var target = documentURL.concat("sensordata");
     $.ajax({
@@ -42,8 +45,6 @@ function getSensorData() {
             $("#sensor").show('fast');
             setSensorResults(data);
             $("#sensordata_table").show();
-            // $("#sensordata_table").delay(10000).hide('fast');
-
         }
     });
 }
@@ -58,19 +59,19 @@ function setSensorResults(data) {
 
 function renderSensorDataTable(data) {
     $('#sensordata_table').append(
-                "<tr>",
-                "<td>Light: </td>",
-                "<td>" + data['light'] + "</td>",
-                 "</tr>",
-                 "<tr>",
-                "<td>Moisture: </td>",
-                "<td>" + data['moisture'] + "</td>",
-                 "</tr>",
-                 "<tr>",
-                "<td>Fertility: </td>",
-                "<td>" + data['conductivity'] + "</td>",
-                "</tr>"
-            );
+        "<tr>",
+        "<td>Light: </td>",
+        "<td>" + data['light'] + "</td>",
+        "</tr>",
+        "<tr>",
+        "<td>Moisture: </td>",
+        "<td>" + data['moisture'] + "</td>",
+        "</tr>",
+        "<tr>",
+        "<td>Fertility: </td>",
+        "<td>" + data['conductivity'] + "</td>",
+        "</tr>"
+    );
 }
 
 function getSoilStatus() {
@@ -137,6 +138,66 @@ function enoughWater() {
             $("#negative").delay(5000).hide('fast');
             $("#water_level").delay(5100).show('fast');
         }
+    });
+}
+
+function getWaterHistory() {
+    resetPage();
+    var documentURL = document.URL;
+    var target = documentURL.concat("history");
+    $.ajax({
+        type: "GET",
+        url: target,
+        beforeSend: function () {
+            $("#history").hide();
+            $("#loading_animation_history").show();
+        },
+        success: function (data) {
+            generateHistoryChart(data);
+            $("#history_chart").show();
+            $("#loading_animation_history").hide();
+            $("#history").show();
+        }
+    });
+}
+
+
+function generateHistoryChart(data) {
+    var series = [{
+        data: data, showInLegend: false,
+    }];
+
+    Highcharts.chart('history_chart', {
+
+        title: {
+            text: null
+        },
+
+        yAxis: {
+            title: {
+                text: 'Number of waterings'
+            },
+            tickInterval: 1,
+        },
+        xAxis: {
+            type: 'datetime',
+            tickInterval: 24 * 3600 * 1000,
+        },
+        series: series,
+        tooltip: {
+            formatter: function () {
+                return Highcharts.dateFormat('%d.%m.%Y',
+                    new Date(this.x)) + ': ' + this.y;
+            }
+        },
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+            }]
+        },
+
     });
 }
 

@@ -29,6 +29,15 @@
                         </div>
                     </td>
                     <td class="symbol">
+                        <input type="image" id="history" src="{{ url_for('static', filename='img/history.png') }}"
+                               height="64"
+                               width="64"
+                               onclick="getWaterHistory();"/>
+                        <div id="loading_animation_history">
+                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
+                        </div>
+                    </td>
+                    <td class="symbol">
                         <input type="image" id="water_level"
                                src="{{ url_for('static', filename='img/water_level.png') }}"
                                height="64"
@@ -46,22 +55,10 @@
                     </td>
                 {% endif %}
             </tr>
-            {#            <tr>#}
-            {#                <td class="symbol">#}
-            {#                    <img src="{{ weather_icon_url }}"#}
-            {#                         height="64" width="64">#}
-            {#                    {{ current_weather.get('main').get('temp')|round|int }} °C#}
-            {#                </td>#}
-            {#                <td class="symbol">#}
-            {#                    <a href="{{ url_for('show_history') }}">#}
-            {#                        <img src="{{ url_for('static', filename='img/history.png') }}"#}
-            {#                             height="64" width="64">#}
-            {#                    </a>#}
-            {#                </td>#}
-            {#            </tr>#}
         </table>
         <br/>
         {% include  "sensor_data_table.html" %}
+        {% include  "history.html" %}
     </div>
 
 
