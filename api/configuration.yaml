@@ -1,0 +1,3 @@
+thresholds:
+  moisture: 30
+  conductivity: 300

@@ -1,19 +1,12 @@
 import requests
-import sys
-sys.path.insert(0, '..')
-
-from configuration import Configuration
 
 base_url_local = 'http://gardenbot.local/v1.0/'
-
-API_KEY = Configuration.GARDENBOT_API_KEY
-URL_REMOTE = Configuration.GARDENBOT_API_URL
 header = {'Content-Type': 'application/json', 'Accept': 'application/problem+json',
-           'API-Key': API_KEY}
+           'API-Key': 'd617f2d7-df3b-47e5-8dd6-86bbf1efec61'}
 
-base_url_test = 'http://gardenbot.local/v1.0/'
-
-URL = URL_REMOTE
+base_url_remote = ""
+base_url_test = 'http://0.0.0.0:5000/v1.0/'
+URL = base_url_test
 
 def water_plants(seconds):
     url = "{}/watering/{}".format(URL, str(seconds))
@@ -31,6 +24,8 @@ def check():
 
 
 """Retrieves the watering history from the gardenbot"""
+
+
 def get_water_history():
     url = "{}water_history".format(URL)
     r = requests.get(url=url, headers=header)
@@ -51,13 +46,6 @@ def get_water_status():
     r = requests.get(url=url, headers=header)
     return r.json()
 
-
-def get_sensor_data():
-    url = "{}sensordata".format(URL)
-    r = requests.get(url=url, headers=header)
-    return r.json()
-
-
 if __name__ == "__main__":
-    json = get_sensor_data()
+    json = get_sensordata_history()
     print(json)

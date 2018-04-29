@@ -5,7 +5,10 @@ from app import login_manager
 from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
-import time
+import datetime, time
+
+testdata = {'name': 'Flower care', 'firmware': '3.1.8', 'conductivity': 547, 'battery': 99, 'moisture': 21, 'temperature': 23.7, 'light': 3410}
+
 
 @login_manager.user_loader
 def load_user(id):
@@ -14,9 +17,9 @@ def load_user(id):
 
 @app.route('/')
 def homepage():
-    current_weather = weather_client.get_current_weather()
-    weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
-    return render_template('homepage.html', current_weather=current_weather, weather_icon_url=weather_icon_url)
+    # current_weather = weather_client.get_current_weather()
+    # weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
+    return render_template('homepage.html')
 
 
 @app.route('/water', methods=['GET'])
@@ -31,6 +34,13 @@ def water():
 def status():
     soil_is_wet = gardenbot_client.check()
     return soil_is_wet
+
+
+@app.route("/sensordata", methods=['GET'])
+@login_required
+def sensordata():
+    sensor_data = gardenbot_client.get_sensor_data()
+    return jsonify(sensor_data)
 
 
 @app.route("/waterstatus", methods=['GET'])
@@ -73,21 +83,6 @@ def logout():
     return redirect(request.args.get("next") or url_for("homepage"))
 
 
-@app.route("/get_history_data", methods=["GET"])
-def get_history_data():
-    json = gardenbot_client.get_history()
-    for item in json:
-        if str(item[1]).__contains__("INFO: Wet enough"):
-            item[1] = "0"
-        else:
-            item[1] = "60"
-    return jsonify(json)
-
-
-# def convert_to_int(input):
-#     return int(input)
-#
-#
 def convert_dataframe(data):
     df = pd.DataFrame(data)
     df.columns = ['Date', 'Watering']
@@ -99,25 +94,15 @@ def convert_dataframe(data):
     return plot_data
 
 
-def date_to_millis(d):
+def date_to_millis(date_string):
+    dateobject = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
     """Converts a datetime object to the number of milliseconds since the unix epoch."""
-    return int(time.mktime(d.timetuple()) * 1000)
+    return int(time.mktime(dateobject.timetuple()) * 1000)
 
 
 @app.route("/history")
 def show_history():
-    plot_data = gardenbot_client.get_history()
-    # plot_data = [[1521849600000, 3], [1521936000000, 5]]
-    chartID = 'chart_ID'
-    chart_type = 'line'
-    chart_height = 350
-    chart = {"renderTo": chartID, "type": chart_type, "height": chart_height}
-    series = [{"data": plot_data, "showInLegend": "false"}]
-
-    title = {"text": 'Watering activities'}
-    xAxis = {"type": "datetime", "tickInterval": 24 * 3600 * 1000}
-    yAxis = {"title": {"text": 'Count'}, "tickInterval": 1}
-    return render_template('history.html', chartID=chartID, chart=chart, series=series, title=title, xAxis=xAxis,
-                           yAxis=yAxis, plot_data=plot_data)
+    plot_data = gardenbot_client.get_water_history()
+    return jsonify(plot_data)
 
 

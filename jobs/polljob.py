@@ -1,12 +1,10 @@
-import sys, os
 import json
+import os
+import sys
 
 dirname = os.path.dirname(__file__)
 parent_dir = os.path.join(dirname, '..')
 sys.path.insert(1, parent_dir)
-from database.db import persist
-from core.sensor import MiFloraSensor
-
 
 class Polljob(MiFloraSensor):
     def __init__(self):
@@ -15,7 +13,7 @@ class Polljob(MiFloraSensor):
     def save(self):
         # Call sensor
         sensor_data = json.loads(self.get_miflora_data())
-        entity = MiFloraSensor.get_sensor_data(sensor_data)
+        entity = MiFloraSensor.create_sensordata_entity(sensor_data)
         persist(entity)
 
 

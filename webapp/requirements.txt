@@ -8,4 +8,4 @@ Flask-WTF
 Jinja2
 Werkzeug
 requests
-PyMySQL
+PyYAML

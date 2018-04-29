@@ -1,13 +1,9 @@
-import os, sys
-
-#sys.path.append("/home/pi/gardenbot")
-from core.gardenbot import Gardenbot
+import os
+import sys
+sys.path.append('..')
 from core.sensor import MiFloraSensor
-sys.path.append("/home/pi/gardenbot/database")
-dirname = os.path.dirname(os.path.realpath(__name__))
-APPLICATION_ROOT = os.path.join(dirname, os.pardir)
-sys.path.extend(APPLICATION_ROOT)
-from database.db import get_water_history_from_db
+from core.gardenbot import Gardenbot
+from database.db import get_water_history_from_db, get_sensordata_from_db, persist
 from flask import Response
 from classes import authservice
 import json
@@ -34,13 +30,25 @@ def check_moisture():
 
 """Returns a list of list with [date, number of waterings]"""
 @authservice.requires_token
-def water_history():
+def get_water_history():
     return json.dumps([tuple(row) for row in get_water_history_from_db()])
 
+
+"""Returns a list of list with [date, number of waterings]"""
 @authservice.requires_token
-def get_water_status():
-    gb = Gardenbot()
-    return str(gb.enough_water())
+def get_sensor_history():
+    return json.dumps([tuple(row) for row in get_sensordata_from_db()])
+
+
+"""Returns the current sensor data and persists them in the database as well """
+@authservice.requires_token
+def get_sensor_data():
+    sensor = MiFloraSensor()
+    sensor_data = sensor.get_miflora_data()
+    sensor_data_json = json.loads(sensor_data)
+    sensor_data_entity = MiFloraSensor.create_sensordata_entity(sensor_data_json)
+    persist(sensor_data_entity)
+    return sensor_data
 
 
 @authservice.requires_token
@@ -48,3 +56,6 @@ def get_water_status():
     gb = Gardenbot()
     gb.setup_pins()
     return json.dumps(gb.enough_water())
+
+
+

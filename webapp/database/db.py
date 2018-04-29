@@ -1,7 +1,8 @@
+import os
+import sys
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import sys, os, datetime
-from database.models import Protocol
 
 CURRENT_WORK_DIR = os.path.dirname(__file__)
 APPLICATION_DIR = os.path.abspath(os.path.join(CURRENT_WORK_DIR, os.pardir))
