@@ -11,7 +11,7 @@ from core.configuration import load_yaml
 thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
 
 class Gardenbot:
-    def __init__(self, relay_channel_pump=17, float_switch_in=25, float_switch_out=4, watering_time=90):
+    def __init__(self, relay_channel_pump=10, float_switch_in=25, float_switch_out=4, watering_time=90):
         self.watering_time = watering_time
         self.sensor = MiFloraSensor()
         with Header() as header:
