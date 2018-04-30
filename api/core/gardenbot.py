@@ -5,10 +5,12 @@ import os
 from core.sensor import MiFloraSensor
 
 dirname = os.path.dirname(__file__)
+parentdir = os.path.join(dirname, os.pardir)
 from database.models import Protocol
 from database.db import persist
-from core.configuration import load_yaml
-thresholds = load_yaml(os.path.join(dirname, "thresholds.yaml"))
+from util.helper import load_yaml
+configuration = load_yaml(os.path.join(parentdir, "configuration.yaml"))
+thresholds = configuration.get('thresholds')
 
 class Gardenbot:
     def __init__(self, relay_channel_pump=10, float_switch_in=25, float_switch_out=4, watering_time=90):

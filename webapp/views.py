@@ -19,7 +19,7 @@ def load_user(id):
 def homepage():
     # current_weather = weather_client.get_current_weather()
     # weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
-    return render_template('homepage.html')
+    return render_template('homepage.html', render_sensor_table=False)
 
 
 @app.route('/water', methods=['GET'])
@@ -81,23 +81,6 @@ def logout():
     logout_user()
     flash('You were logged out')
     return redirect(request.args.get("next") or url_for("homepage"))
-
-
-def convert_dataframe(data):
-    df = pd.DataFrame(data)
-    df.columns = ['Date', 'Watering']
-    df['Date'] = pd.to_datetime(df['Date'], format="%Y-%m-%d %H:%M:%S")
-    df['Date'] = df['Date'].dt.date
-    df['Date'] = df['Date'].apply(lambda x: date_to_millis(x))
-    df = df.groupby("Date").sum()
-    plot_data = df.reset_index().values.tolist()
-    return plot_data
-
-
-def date_to_millis(date_string):
-    dateobject = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
-    """Converts a datetime object to the number of milliseconds since the unix epoch."""
-    return int(time.mktime(dateobject.timetuple()) * 1000)
 
 
 @app.route("/history")

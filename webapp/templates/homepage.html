@@ -1,62 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <div align="center">
-        <table id="command_table">
-            <tr>
-                {% if current_user.is_authenticated %}
-                    <td class="symbol">
-                        <input type="image" id="water_can" src="{{ url_for('static', filename='img/watering.jpg') }}"
-                               height="64" width="64" onclick="waterPlants();"/>
-                        <div id="loading_animation_water">
-                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
-                        </div>
-                        <div id="ok_water">
-                            <img src="{{ url_for('static', filename='img/ok.jpg') }}" height="64" width="64">
-                        </div>
-                    <td class="symbol">
-                        <input type="image" id="sensor" src="{{ url_for('static', filename='img/sensor.png') }}"
-                               height="64"
-                               width="64"
-                               onclick="getSensorData();"/>
-                        <div id="loading_animation_sensor">
-                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
-                        </div>
-                        <div id="ok_sensor">
-                            <img src="{{ url_for('static', filename='img/wet.png') }}" height="64" width="64">
-                        </div>
-                        <div id="not_ok_sensor">
-                            <img src="{{ url_for('static', filename='img/dry_soil.png') }}" height="64" width="64">
-                        </div>
-                    </td>
-                    <td class="symbol">
-                        <input type="image" id="history" src="{{ url_for('static', filename='img/history.png') }}"
-                               height="64"
-                               width="64"
-                               onclick="getWaterHistory();"/>
-                        <div id="loading_animation_history">
-                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
-                        </div>
-                    </td>
-                    <td class="symbol">
-                        <input type="image" id="water_level"
-                               src="{{ url_for('static', filename='img/water_level.png') }}"
-                               height="64"
-                               width="64"
-                               onclick="enoughWater();"/>
-                        <div id="loading_animation_water_level">
-                            <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64">
-                        </div>
-                        <div id="positive">
-                            <img src="{{ url_for('static', filename='img/positive.png') }}" height="64" width="64">
-                        </div>
-                        <div id="negative">
-                            <img src="{{ url_for('static', filename='img/negative.png') }}" height="64" width="64">
-                        </div>
-                    </td>
-                {% endif %}
-            </tr>
-        </table>
-        <br/>
+    <div align="center" style="height: 500px;">
+        {% include "commands.html" %}
         {% include  "sensor_data_table.html" %}
         {% include  "history.html" %}
     </div>

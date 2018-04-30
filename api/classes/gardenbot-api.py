@@ -45,10 +45,13 @@ def get_sensor_history():
 def get_sensor_data():
     sensor = MiFloraSensor()
     sensor_data = sensor.get_miflora_data()
-    sensor_data_json = json.loads(sensor_data)
-    sensor_data_entity = MiFloraSensor.create_sensordata_entity(sensor_data_json)
-    persist(sensor_data_entity)
-    return sensor_data
+    if sensor_data is not None:
+        sensor_data_json = json.loads(sensor_data)
+        sensor_data_entity = MiFloraSensor.as_sensor_data(sensor_data_json)
+        persist(sensor_data_entity)
+        return sensor_data
+    else:
+        return Response(404)
 
 
 @authservice.requires_token
