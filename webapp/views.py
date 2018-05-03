@@ -6,6 +6,8 @@ from models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from webservices import gardenbot_client, weather_client
 import datetime, time
+from flask_cors import cross_origin
+
 
 testdata = {'name': 'Flower care', 'firmware': '3.1.8', 'conductivity': 547, 'battery': 99, 'moisture': 21, 'temperature': 23.7, 'light': 3410}
 
@@ -19,7 +21,7 @@ def load_user(id):
 def homepage():
     # current_weather = weather_client.get_current_weather()
     # weather_icon_url = weather_client.get_weather_icon_url(weather_client.get_weather_icon(current_weather))
-    return render_template('homepage.html', render_sensor_table=False)
+    return render_template('homepage.html')
 
 
 @app.route('/water', methods=['GET'])
@@ -36,6 +38,7 @@ def status():
     return soil_is_wet
 
 
+# @cross_origin()
 @app.route("/sensordata", methods=['GET'])
 @login_required
 def sensordata():
