@@ -114,22 +114,22 @@ paths:
           in: header
           type: string
           required: true
-  /waterstatus:
-    get:
-      summary: Water indicator
-      description: Returns true, if there's enough water in the bucket, otherwise false
-      operationId: classes.gardenbot-api.get_water_status
-      produces:
-      - application/json;
-      responses:
-        200:
-          description: water status response
-          schema:
-            type: string
-          examples:
-            "text/plain": "Showing water status"
-      parameters:
-        - name: API-Key
-          in: header
-          type: string
-          required: true
+#  /waterstatus:
+#    get:
+#      summary: Water indicator
+#      description: Returns true, if there's enough water in the bucket, otherwise false
+#      operationId: classes.gardenbot-api.get_water_status
+#      produces:
+#      - application/json;
+#      responses:
+#        200:
+#          description: water status response
+#          schema:
+#            type: string
+#          examples:
+#            "text/plain": "Showing water status"
+#      parameters:
+#        - name: API-Key
+#          in: header
+#          type: string
+#          required: true

@@ -13,13 +13,11 @@ configuration = load_yaml(os.path.join(parentdir, "configuration.yaml"))
 thresholds = configuration.get('thresholds')
 
 class Gardenbot:
-    def __init__(self, relay_channel_pump=10, float_switch_in=25, float_switch_out=4, watering_time=90):
+    def __init__(self, relay_channel_pump=10, float_switch_in=16, float_switch_out=7, watering_time=90):
         self.watering_time = watering_time
         self.sensor = MiFloraSensor()
         with Header() as header:
             self.pump_pin = OutputPin(relay_channel_pump, value=1)
-            self.float_switch_in_pin = InputPin(float_switch_in)
-            self.float_switch_out_pin = OutputPin(float_switch_out, value=0)
 
 
     @staticmethod
@@ -33,30 +31,15 @@ class Gardenbot:
     def water_plants(self, watering_time=30):
         p = Protocol(water=1)
         persist(p)
-        self.open_water()
+        self.start_pump()
         time.sleep(watering_time)
-        self.close_water()
+        self.stop_pump()
 
-    def enough_water(self):
-        self.float_switch_out_pin = True
 
-        # wait a bit
-        time.sleep(1)
-
-        # signal = GPIO.input(self.float_switch_in)
-        # True = circuit close, False = circuit open
-
-        signal = self.float_switch_in_pin.value
-        time.sleep(1)
-
-        #GPIO.output(self.float_switch_out, False)
-        self.float_switch_out_pin = False
-        return not signal
-
-    def open_water(self):
+    def start_pump(self):
         Gardenbot.relay_close_circuit(self.pump_pin)
 
-    def close_water(self):
+    def stop_pump(self):
         Gardenbot.relay_open_circuit(self.pump_pin)
 
     '''Returns True, if the soil is wet enough and False if it is too dry'''
@@ -81,4 +64,4 @@ class Gardenbot:
 
 if __name__ == '__main__':
     gb = Gardenbot()
-    gb.close_water()
+    gb.stop_pump()

@@ -12,7 +12,7 @@ import json
 @authservice.requires_token
 def water_plants(seconds):
     gb = Gardenbot()
-    gb.close_water()
+    gb.stop_pump()
     watering_time = int(seconds)
     gb.water_plants(watering_time)
     msg = "The plants have been watered for {0} seconds".format(seconds)
@@ -54,11 +54,11 @@ def get_sensor_data():
         return Response(404)
 
 
-@authservice.requires_token
-def get_water_status():
-    gb = Gardenbot()
-    gb.setup_pins()
-    return json.dumps(gb.enough_water())
+# @authservice.requires_token
+# def get_water_status():
+#     gb = Gardenbot()
+#     gb.setup_pins()
+#     return json.dumps(gb.enough_water())
 
 
 
