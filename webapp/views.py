@@ -34,7 +34,6 @@ def status():
     return soil_is_wet
 
 
-# @cross_origin()
 @app.route("/sensordata", methods=['GET'])
 @login_required
 def sensordata():

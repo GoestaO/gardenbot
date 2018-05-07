@@ -1,12 +1,20 @@
 import requests
+import yaml
 
-base_url_local = 'http://gardenbot.local/v1.0/'
+
+def _read_config():
+    with open('api.conf') as config_file:
+        conf = yaml.load(config_file)
+    return conf
+
+
+configuration = _read_config()
+
+GARDENBOT_API_KEY = _read_config().get('gardenbot').get('key')
+URL = _read_config().get('gardenbot').get('url')
 header = {'Content-Type': 'application/json', 'Accept': 'application/problem+json',
-           'API-Key': 'd617f2d7-df3b-47e5-8dd6-86bbf1efec61'}
+           'API-Key': GARDENBOT_API_KEY}
 
-base_url_remote = ""
-base_url_test = 'http://0.0.0.0:5000/v1.0/'
-URL = base_url_test
 
 def water_plants(seconds):
     url = "{}/watering/{}".format(URL, str(seconds))
@@ -46,6 +54,12 @@ def get_water_status():
     r = requests.get(url=url, headers=header)
     return r.json()
 
+
+def get_sensor_data():
+    url = "{}sensordata".format(URL)
+    r = requests.get(url=url, headers=header)
+    return r.json()
+
 if __name__ == "__main__":
-    json = get_sensordata_history()
+    json = get_sensor_data()
     print(json)

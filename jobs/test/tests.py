@@ -23,19 +23,19 @@ class GardenbotTest(unittest.TestCase):
 
     def test_measure_moisture_with_dry_soil(self):
         Gardenbot.soil_is_wet = MagicMock(return_value="False")
-        self.gardenbot_test_object.measure_moisture(14)
+        self.gardenbot_test_object.water_or_not(14)
         self.assertTrue(self.gardenbot_test_object.water_plants.assert_called(), False)
 
     def test_measure_moisture_with_wet_soil(self):
         Gardenbot.soil_is_wet = MagicMock(return_value="True")
         self.assertEquals(Gardenbot.soil_is_wet(14), "True")
-        self.gardenbot_test_object.measure_moisture(14)
+        self.gardenbot_test_object.water_or_not(14)
         self.assertTrue(self.gardenbot_test_object.water_plants.assert_not_called(), True)
 
 
     def test_sensor_stopped(self):
         Gardenbot.soil_is_wet = MagicMock(return_value="True")
-        self.gardenbot_test_object.measure_moisture(14)
+        self.gardenbot_test_object.water_or_not(14)
         self.assertTrue(self.gardenbot_test_object.stop_sensor.assert_called(), True)
 
 

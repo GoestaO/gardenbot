@@ -78,25 +78,25 @@ paths:
           in: header
           type: string
           required: true
-  /sensordata_history:
-    get:
-      summary: Returns sensordata of the past
-      description: Returns timestamp, temperature, moisture, fertility, light and battery of the past
-      operationId: classes.gardenbot-api.get_sensor_history
-      produces:
-      - application/json;
-      responses:
-        200:
-          description: history response
-          schema:
-            type: string
-          examples:
-            "text/plain": test
-      parameters:
-        - name: API-Key
-          in: header
-          type: string
-          required: true
+#  /sensordata_history:
+#    get:
+#      summary: Returns sensordata of the past
+#      description: Returns timestamp, temperature, moisture, fertility, light and battery of the past
+#      operationId: classes.gardenbot-api.get_sensor_history
+#      produces:
+#      - application/json;
+#      responses:
+#        200:
+#          description: history response
+#          schema:
+#            type: string
+#          examples:
+#            "text/plain": test
+#      parameters:
+#        - name: API-Key
+#          in: header
+#          type: string
+#          required: true
   /sensordata:
     get:
       summary: Returns the current sensor data

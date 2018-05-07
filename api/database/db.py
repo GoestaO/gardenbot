@@ -8,7 +8,7 @@ CURRENT_DIR = os.path.dirname(__file__)
 APPLICATION_DIR = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 sys.path.append(CURRENT_DIR)
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}/{1}'.format(CURRENT_DIR, 'gardenbot.db')
-SQLALCHEMY_DATABASE_URI = 'sqlite:///var/www/gardenbot-api/database/gardenbot.db'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://gardenbot:gardenbot@localhost:3306/gardenbot'
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
 
@@ -20,14 +20,25 @@ def persist(entity):
     session.close()
 
 
+# def get_water_history_from_db():
+# #     session = Session()
+# #     sql = "Select * from (SELECT strftime('%s', date(protocol.timestamp)) * 1000 as date, " \
+# #           "count(protocol.water) as waterings " \
+# #           "FROM protocol " \
+# #           "GROUP BY date(protocol.timestamp) " \
+# #           "ORDER BY date(protocol.timestamp) desc) limit 5;"
+# #     result = session.execute(sql).fetchall()
+# #     session.close()
+# #     return result
+
+
 def get_water_history_from_db():
     session = Session()
-    sql = "SELECT strftime('%s', date(protocol.timestamp))*1000, " \
-          "count(protocol.water) " \
-          "FROM protocol " \
+    sql = "SELECT UNIX_TIMESTAMP(date(protocol.timestamp)) * 1000 as millis, " \
+          "count(protocol.water) as waterings FROM protocol " \
           "GROUP BY date(protocol.timestamp) " \
           "ORDER BY date(protocol.timestamp) " \
-          "ASC limit 5;"
+          "desc limit 5;"
     result = session.execute(sql).fetchall()
     session.close()
     return result

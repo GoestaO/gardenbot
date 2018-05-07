@@ -34,10 +34,10 @@ def get_water_history():
     return json.dumps([tuple(row) for row in get_water_history_from_db()])
 
 
-"""Returns a list of list with [date, number of waterings]"""
-@authservice.requires_token
-def get_sensor_history():
-    return json.dumps([tuple(row) for row in get_sensordata_from_db()])
+# """Returns a list of list with [date, number of waterings]"""
+# @authservice.requires_token
+# def get_sensor_history():
+#     return json.dumps([tuple(row) for row in get_sensordata_from_db()])
 
 
 """Returns the current sensor data and persists them in the database as well """
