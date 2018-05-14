@@ -1,5 +1,10 @@
 import sys
+import os
 from gardenbot_client import check, water_plants
+
+abspath = os.path.abspath(__file__)
+dirname = os.path.dirname(abspath)
+os.chdir(dirname)
 
 class Waterjob():
     def __init__(self):

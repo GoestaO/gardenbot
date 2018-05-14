@@ -1,5 +1,9 @@
+import os
 import requests
 import yaml
+abspath = os.path.abspath(__file__)
+dirname = os.path.dirname(abspath)
+os.chdir(dirname)
 
 
 def _read_config():

@@ -35,7 +35,7 @@ def status():
 
 
 @app.route("/sensordata", methods=['GET'])
-@login_required
+# @login_required
 def sensordata():
     sensor_data = gardenbot_client.get_sensor_data()
     return jsonify(sensor_data)

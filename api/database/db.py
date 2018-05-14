@@ -20,25 +20,13 @@ def persist(entity):
     session.close()
 
 
-# def get_water_history_from_db():
-# #     session = Session()
-# #     sql = "Select * from (SELECT strftime('%s', date(protocol.timestamp)) * 1000 as date, " \
-# #           "count(protocol.water) as waterings " \
-# #           "FROM protocol " \
-# #           "GROUP BY date(protocol.timestamp) " \
-# #           "ORDER BY date(protocol.timestamp) desc) limit 5;"
-# #     result = session.execute(sql).fetchall()
-# #     session.close()
-# #     return result
-
-
 def get_water_history_from_db():
     session = Session()
-    sql = "SELECT UNIX_TIMESTAMP(date(protocol.timestamp)) * 1000 as millis, " \
-          "count(protocol.water) as waterings FROM protocol " \
-          "GROUP BY date(protocol.timestamp) " \
-          "ORDER BY date(protocol.timestamp) " \
-          "desc limit 5;"
+    sql = "select * from (SELECT UNIX_TIMESTAMP(timestamp(date(protocol.timestamp), '02:00:00.000'))*1000 as millis," \
+          "count(protocol.water) as waterings FROM protocol" \
+          "GROUP BY date(protocol.timestamp)" \
+          "ORDER BY date(protocol.timestamp)" \
+          "desc limit 5)sub order by sub.millis asc;"
     result = session.execute(sql).fetchall()
     session.close()
     return result
