@@ -35,7 +35,7 @@ def status():
 
 
 @app.route("/sensordata", methods=['GET'])
-# @login_required
+@login_required
 def sensordata():
     sensor_data = gardenbot_client.get_sensor_data()
     return jsonify(sensor_data)
@@ -82,6 +82,7 @@ def logout():
 
 
 @app.route("/history")
+@login_required
 def show_history():
     plot_data = gardenbot_client.get_water_history()
     return jsonify(plot_data)
