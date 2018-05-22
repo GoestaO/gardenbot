@@ -170,7 +170,7 @@ function generateHistoryChart(data) {
     Highcharts.chart('history_chart', {
         chart: {
             backgroundColor: '#DCDCDC',
-            type: 'column'
+            type: 'line'
         },
         title: {
             text: null

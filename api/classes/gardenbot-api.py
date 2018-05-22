@@ -23,6 +23,10 @@ def water_plants(seconds):
 def check_moisture():
     sensor = MiFloraSensor()
     sensor_data = json.loads(sensor.get_miflora_data())
+    if sensor_data is not None:
+        sensor_data_json = json.loads(sensor_data)
+        sensor_data_entity = MiFloraSensor.as_sensor_data(sensor_data_json)
+        persist(sensor_data_entity)
     soil_is_wet = Gardenbot.soil_is_wet(sensor_data)
     msg = "{}".format(soil_is_wet)
     return Response(msg)
