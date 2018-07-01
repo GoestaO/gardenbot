@@ -27,7 +27,7 @@ def check_moisture():
         sensor_data_json = json.loads(sensor_data)
         sensor_data_entity = MiFloraSensor.as_sensor_data(sensor_data_json)
         persist(sensor_data_entity)
-    soil_is_wet = Gardenbot.soil_is_wet(sensor_data_json)
+    soil_is_wet = Gardenbot.soil_is_wet(sensor_data)
     msg = "{}".format(soil_is_wet)
     return Response(msg)
 
