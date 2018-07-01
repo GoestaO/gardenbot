@@ -23,7 +23,7 @@ def persist(entity):
 def get_water_history_from_db():
     session = Session()
     sql = "select * from (SELECT UNIX_TIMESTAMP(timestamp(date(protocol.timestamp), '02:00:00'))*1000 as millis, " \
-          "count(protocol.water) as waterings FROM protocol " \
+          "CAST(sum(protocol.water) as UNSIGNED) as waterings FROM protocol " \
           "GROUP BY date(protocol.timestamp) " \
           "ORDER BY date(protocol.timestamp) " \
           "desc limit 5)sub order by sub.millis asc;"
