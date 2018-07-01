@@ -22,7 +22,7 @@ def water_plants(seconds):
 @authservice.requires_token
 def check_moisture():
     sensor = MiFloraSensor()
-    sensor_data = json.loads(sensor.get_miflora_data())
+    sensor_data = sensor.get_miflora_data()
     if sensor_data is not None:
         sensor_data_json = json.loads(sensor_data)
         sensor_data_entity = MiFloraSensor.as_sensor_data(sensor_data_json)
@@ -38,13 +38,7 @@ def get_water_history():
     return json.dumps([tuple(row) for row in get_water_history_from_db()])
 
 
-# """Returns a list of list with [date, number of waterings]"""
-# @authservice.requires_token
-# def get_sensor_history():
-#     return json.dumps([tuple(row) for row in get_sensordata_from_db()])
-
-
-"""Returns the current sensor data and persists them in the database as well """
+"""Returns the current sensor data and persists them in the database as well"""
 @authservice.requires_token
 def get_sensor_data():
     sensor = MiFloraSensor()

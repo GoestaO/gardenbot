@@ -35,22 +35,22 @@
                     <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64"/>
                 </div>
             </td>
-            <td>
-                <input type="image" id="water_level"
-                       src="{{ url_for('static', filename='img/water_level.png') }}"
-                       height="64"
-                       width="64"
-                       onclick="enoughWater();"/>
-                <div id="loading_animation_water_level">
-                    <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64"/>
-                </div>
-                <div id="positive">
-                    <img src="{{ url_for('static', filename='img/positive.png') }}" height="64" width="64"/>
-                </div>
-                <div id="negative">
-                    <img src="{{ url_for('static', filename='img/negative.png') }}" height="64" width="64"/>
-                </div>
-            </td>
+{#            <td>#}
+{#                <input type="image" id="water_level"#}
+{#                       src="{{ url_for('static', filename='img/water_level.png') }}"#}
+{#                       height="64"#}
+{#                       width="64"#}
+{#                       onclick="enoughWater();"/>#}
+{#                <div id="loading_animation_water_level">#}
+{#                    <img src="{{ url_for('static', filename='img/loading.gif') }}" height="64" width="64"/>#}
+{#                </div>#}
+{#                <div id="positive">#}
+{#                    <img src="{{ url_for('static', filename='img/positive.png') }}" height="64" width="64"/>#}
+{#                </div>#}
+{#                <div id="negative">#}
+{#                    <img src="{{ url_for('static', filename='img/negative.png') }}" height="64" width="64"/>#}
+{#                </div>#}
+{#            </td>#}
         {% endif %}
     </tr>
 </table>
